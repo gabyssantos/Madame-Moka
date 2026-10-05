@@ -55,12 +55,18 @@
 
                 <li>
                     <a th:href="@{/pedidos}">
-                        Pedidos
+                        🛒 Carrinho
+                        <span id="quantidadeCarrinho">0</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/perfil}" title="Meu Perfil">
+                        👤
                     </a>
                 </li>
 
             </ul>
-
         </div>
 
     </nav>
@@ -96,6 +102,11 @@
                     R$ 12,00
                 </span>
 
+                <button class="btn-carrinho"
+                        onclick="adicionarCarrinho('Cappuccino', 12.00)">
+                    Adicionar ao carrinho
+                </button>
+
             </div>
 
 
@@ -115,6 +126,11 @@
                     R$ 8,00
                 </span>
 
+                <button class="btn-carrinho"
+                        onclick="adicionarCarrinho('Chás variados', 8.00)">
+                    Adicionar ao carrinho
+                </button>
+
             </div>
 
 
@@ -133,6 +149,11 @@
                 <span class="price">
                     R$ 13,00
                 </span>
+
+                <button class="btn-carrinho"
+                        onclick="adicionarCarrinho('Mocaccino', 13.00)">
+                    Adicionar ao carrinho
+                </button>
 
             </div>
 
@@ -172,6 +193,11 @@
                     R$ 10,00
                 </span>
 
+                <button class="btn-carrinho"
+                        onclick="adicionarCarrinho('Café gelado (Iced Coffee)', 10.00)">
+                    Adicionar ao carrinho
+                </button>
+
             </div>
 
 
@@ -191,6 +217,11 @@
                     R$ 14,00
                 </span>
 
+                <button class="btn-carrinho"
+                        onclick="adicionarCarrinho('Frappé', 14.00)">
+                    Adicionar ao carrinho
+                </button>
+
             </div>
 
 
@@ -209,6 +240,11 @@
                 <span class="price">
                     R$ 15,00
                 </span>
+
+                <button class="btn-carrinho"
+                        onclick="adicionarCarrinho('Smoothies', 15.00)">
+                    Adicionar ao carrinho
+                </button>
 
             </div>
 
@@ -248,6 +284,11 @@
                     R$ 9,00
                 </span>
 
+                <button class="btn-carrinho"
+                        onclick="adicionarCarrinho('Croissant', 9.00)">
+                    Adicionar ao carrinho
+                </button>
+
             </div>
 
 
@@ -267,6 +308,11 @@
                     R$ 8,00
                 </span>
 
+                <button class="btn-carrinho"
+                        onclick="adicionarCarrinho('Cookies', 8.00)">
+                    Adicionar ao carrinho
+                </button>
+
             </div>
 
 
@@ -285,6 +331,11 @@
                 <span class="price">
                     R$ 10,00
                 </span>
+
+                <button class="btn-carrinho"
+                        onclick="adicionarCarrinho('Bolo de chocolate', 10.00)">
+                    Adicionar ao carrinho
+                </button>
 
             </div>
 
@@ -324,6 +375,11 @@
                     R$ 12,00
                 </span>
 
+                <button class="btn-carrinho"
+                        onclick="adicionarCarrinho('Sanduíches naturais', 12.00)">
+                    Adicionar ao carrinho
+                </button>
+
             </div>
 
 
@@ -343,6 +399,11 @@
                     R$ 9,00
                 </span>
 
+                <button class="btn-carrinho"
+                        onclick="adicionarCarrinho('Empadas', 9.00)">
+                    Adicionar ao carrinho
+                </button>
+
             </div>
 
 
@@ -361,6 +422,11 @@
                 <span class="price">
                     R$ 10,00
                 </span>
+
+                <button class="btn-carrinho"
+                        onclick="adicionarCarrinho('Salgados assados', 10.00)">
+                    Adicionar ao carrinho
+                </button>
 
             </div>
 
@@ -400,6 +466,11 @@
                     R$ 5,00
                 </span>
 
+                <button class="btn-carrinho"
+                        onclick="adicionarCarrinho('Brigadeiro gourmet', 5.00)">
+                    Adicionar ao carrinho
+                </button>
+
             </div>
 
 
@@ -419,6 +490,11 @@
                     R$ 14,00
                 </span>
 
+                <button class="btn-carrinho"
+                        onclick="adicionarCarrinho('Petit gâteau', 14.00)">
+                    Adicionar ao carrinho
+                </button>
+
             </div>
 
 
@@ -437,6 +513,11 @@
                 <span class="price">
                     R$ 13,00
                 </span>
+
+                <button class="btn-carrinho"
+                        onclick="adicionarCarrinho('Tortas especiais', 13.00)">
+                    Adicionar ao carrinho
+                </button>
 
             </div>
 
@@ -476,6 +557,11 @@
                     R$ 10,00
                 </span>
 
+                <button class="btn-carrinho"
+                        onclick="adicionarCarrinho('Salada de frutas', 10.00)">
+                    Adicionar ao carrinho
+                </button>
+
             </div>
 
 
@@ -495,6 +581,11 @@
                     R$ 13,00
                 </span>
 
+                <button class="btn-carrinho"
+                        onclick="adicionarCarrinho('Sanduíches integrais', 13.00)">
+                    Adicionar ao carrinho
+                </button>
+
             </div>
 
 
@@ -513,6 +604,11 @@
                 <span class="price">
                     R$ 11,00
                 </span>
+
+                <button class="btn-carrinho"
+                        onclick="adicionarCarrinho('Tapioca', 11.00)">
+                    Adicionar ao carrinho
+                </button>
 
             </div>
 
@@ -552,6 +648,11 @@
                     R$ 25,00
                 </span>
 
+                <button class="btn-carrinho"
+                        onclick="adicionarCarrinho('Grãos de café especiais', 25.00)">
+                    Adicionar ao carrinho
+                </button>
+
             </div>
 
 
@@ -570,6 +671,11 @@
                 <span class="price">
                     R$ 35,00
                 </span>
+
+                <button class="btn-carrinho"
+                        onclick="adicionarCarrinho('Canecas personalizadas', 35.00)">
+                    Adicionar ao carrinho
+                </button>
 
             </div>
 
@@ -590,6 +696,11 @@
                     R$ 30,00
                 </span>
 
+                <button class="btn-carrinho"
+                        onclick="adicionarCarrinho('Cápsulas de café', 30.00)">
+                    Adicionar ao carrinho
+                </button>
+
             </div>
 
 
@@ -599,7 +710,465 @@
 
 </section>
 
+<!-- ================= MODAL DE CADASTRO ================= -->
 
+<div id="modalCadastro" class="modal-cadastro">
+
+    <div class="modal-conteudo">
+
+        <span class="fechar-modal" onclick="fecharCadastro()">
+            &times;
+        </span>
+
+        <h2>Crie sua conta</h2>
+
+        <p>
+            Para adicionar produtos ao carrinho, faça seu cadastro.
+        </p>
+
+        <form id="formCadastro">
+
+            <input
+                    type="text"
+                    id="nomeCadastro"
+                    placeholder="Nome completo"
+                    required>
+
+            <input
+                    type="email"
+                    id="emailCadastro"
+                    placeholder="E-mail"
+                    required>
+
+            <input
+                    type="tel"
+                    id="telefoneCadastro"
+                    placeholder="Telefone"
+                    required>
+
+            <input
+                    type="password"
+                    id="senhaCadastro"
+                    placeholder="Senha"
+                    required>
+
+            <button type="submit" class="btn-carrinho">
+                Cadastrar
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- ================= MODAL DE LOGIN ================= -->
+
+<div id="modalLogin" class="modal-cadastro">
+
+    <div class="modal-conteudo">
+
+        <span class="fechar-modal" onclick="fecharLogin()">
+            &times;
+        </span>
+
+        <h2>Entrar na sua conta</h2>
+
+        <p>
+            Entre para adicionar produtos ao carrinho.
+        </p>
+
+        <form id="formLogin">
+
+            <input
+                    type="email"
+                    id="emailLogin"
+                    placeholder="E-mail"
+                    required>
+
+            <input
+                    type="password"
+                    id="senhaLogin"
+                    placeholder="Senha"
+                    required>
+
+            <button type="submit" class="btn-carrinho">
+                Entrar
+            </button>
+
+        </form>
+
+        <p style="margin-top: 20px;">
+            Ainda não tem uma conta?
+        </p>
+
+        <button
+                type="button"
+                class="btn-carrinho"
+                onclick="abrirCadastroPeloLogin()">
+
+            Criar minha conta
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+    function atualizarQuantidadeCarrinho() {
+
+        let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+
+        let quantidade = 0;
+
+        carrinho.forEach(produto => {
+            quantidade += produto.quantidade;
+        });
+
+        document.getElementById("quantidadeCarrinho").textContent = quantidade;
+    }
+
+
+    // ================= ADICIONAR AO CARRINHO =================
+
+    function adicionarCarrinho(nome, preco) {
+
+        // Verifica se existe uma sessão de login
+        fetch("/cliente/verificar")
+            .then(response => response.text())
+            .then(resultado => {
+
+                // Se não estiver logado
+                if (resultado === "NAO_LOGADO") {
+
+                    // Guarda o produto que a pessoa tentou adicionar
+                    localStorage.setItem(
+                        "produtoPendente",
+                        JSON.stringify({
+                            nome: nome,
+                            preco: preco
+                        })
+                    );
+
+                    // Abre o modal de login
+                    document.getElementById("modalLogin").style.display = "flex";
+
+                    return;
+                }
+
+                // Se estiver logado
+                adicionarProdutoCarrinho(nome, preco);
+
+            })
+            .catch(error => {
+
+                console.error(error);
+
+                alert("Erro ao verificar o login.");
+
+            });
+    }
+
+
+    // ================= ADICIONAR PRODUTO =================
+
+    function adicionarProdutoCarrinho(nome, preco) {
+
+        let carrinho =
+            JSON.parse(localStorage.getItem("carrinho")) || [];
+
+        let produtoExistente =
+            carrinho.find(produto => produto.nome === nome);
+
+
+        if (produtoExistente) {
+
+            produtoExistente.quantidade++;
+
+        } else {
+
+            carrinho.push({
+                nome: nome,
+                preco: preco,
+                quantidade: 1
+            });
+
+        }
+
+
+        localStorage.setItem(
+            "carrinho",
+            JSON.stringify(carrinho)
+        );
+
+
+        atualizarQuantidadeCarrinho();
+
+
+        // alert(nome + " foi adicionado ao carrinho!");
+    }
+
+
+    // ================= FECHAR CADASTRO =================
+
+    function fecharCadastro() {
+
+        document.getElementById("modalCadastro").style.display = "none";
+    }
+
+
+    // ================= FECHAR LOGIN =================
+
+    function fecharLogin() {
+
+        document.getElementById("modalLogin").style.display = "none";
+    }
+
+
+    // ================= ABRIR CADASTRO PELO LOGIN =================
+
+    function abrirCadastroPeloLogin() {
+
+        fecharLogin();
+
+        document.getElementById("modalCadastro").style.display = "flex";
+    }
+
+
+    // ================= CADASTRO =================
+
+    document.getElementById("formCadastro").addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+
+            let cliente = {
+
+                nome: document.getElementById("nomeCadastro").value,
+
+                email: document.getElementById("emailCadastro").value,
+
+                telefone: document.getElementById("telefoneCadastro").value,
+
+                senha: document.getElementById("senhaCadastro").value
+
+            };
+
+
+            fetch("/cliente/cadastrar", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify(cliente)
+
+            })
+
+            .then(response => response.text())
+
+            .then(resultado => {
+
+
+                if (resultado === "EMAIL_EXISTENTE") {
+
+                    alert("Este e-mail já está cadastrado!");
+
+                    return;
+                }
+
+
+                if (resultado === "CADASTRO_OK") {
+
+                    // Fecha o modal
+                    fecharCadastro();
+
+
+                    // Limpa o formulário
+                    document.getElementById("formCadastro").reset();
+
+
+                    // Recupera o produto que a pessoa tentou adicionar
+                    let produtoPendente =
+                        JSON.parse(
+                            localStorage.getItem("produtoPendente")
+                        );
+
+
+                    if (produtoPendente) {
+
+                        adicionarProdutoCarrinho(
+                            produtoPendente.nome,
+                            produtoPendente.preco
+                        );
+
+
+                        // Remove o produto pendente
+                        localStorage.removeItem(
+                            "produtoPendente"
+                        );
+                    }
+
+                }
+
+            })
+
+            .catch(error => {
+
+                console.error(error);
+
+                alert("Erro ao realizar o cadastro.");
+
+            });
+
+        }
+    );
+
+
+    // ================= LOGIN =================
+
+    document.getElementById("formLogin").addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+
+            let cliente = {
+
+                email: document.getElementById("emailLogin").value,
+
+                senha: document.getElementById("senhaLogin").value
+
+            };
+
+
+            fetch("/cliente/login", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify(cliente)
+
+            })
+
+            .then(response => response.text())
+
+            .then(resultado => {
+
+
+                if (resultado === "NAO_CADASTRADO") {
+
+                    alert("Este e-mail não está cadastrado.");
+
+                    return;
+                }
+
+
+                if (resultado === "SENHA_INCORRETA") {
+
+                    alert("Senha incorreta.");
+
+                    return;
+                }
+
+
+                if (resultado === "LOGIN_OK") {
+
+                    // Fecha o modal
+                    fecharLogin();
+
+
+                    // Limpa o formulário
+                    document.getElementById("formLogin").reset();
+
+
+                    // Recupera o produto que a pessoa tentou adicionar
+                    let produtoPendente =
+                        JSON.parse(
+                            localStorage.getItem("produtoPendente")
+                        );
+
+
+                    if (produtoPendente) {
+
+                        adicionarProdutoCarrinho(
+                            produtoPendente.nome,
+                            produtoPendente.preco
+                        );
+
+
+                        // Remove o produto pendente
+                        localStorage.removeItem(
+                            "produtoPendente"
+                        );
+                    }
+
+                }
+
+            })
+
+            .catch(error => {
+
+                console.error(error);
+
+                alert("Erro ao realizar o login.");
+
+            });
+
+        }
+    );
+
+// ================= SAIR DA CONTA =================
+
+function sair(event) {
+
+    event.preventDefault();
+
+    fetch("/cliente/sair", {
+
+        method: "POST"
+
+    })
+
+    .then(response => response.text())
+
+    .then(resultado => {
+
+        if (resultado === "LOGOUT_OK") {
+
+            alert("Você saiu da sua conta.");
+
+            window.location.href = "/produtos";
+        }
+
+    })
+
+    .catch(error => {
+
+        console.error(error);
+
+        alert("Erro ao sair da conta.");
+
+    });
+}
+
+    // ================= ATUALIZAR CARRINHO =================
+
+    atualizarQuantidadeCarrinho();
+
+</script>
 
 </body>
 

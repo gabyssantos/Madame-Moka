@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Madame Moka - Meu Perfil</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+    <nav class="navbar">
+
+        <div class="container">
+
+            <!-- LOGO -->
+
+            <div class="logo">
+
+                <a th:href="@{/}">
+
+                    <img th:src="@{/img/logo.png}"
+                         alt="Madame Moka">
+
+                </a>
+
+            </div>
+
+
+            <!-- MENU -->
+
+            <ul class="nav-menu">
+
+                <li>
+                    <a th:href="@{/}">
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/produtos}">
+                        Produtos
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/pedidos}">
+                        🛒 Carrinho
+                        <span id="quantidadeCarrinho">0</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/perfil}"
+                       title="Meu Perfil">
+                        👤
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+
+<!-- ================= PERFIL ================= -->
+
+<section class="perfil-pagina">
+
+    <div class="container">
+
+        <h2>Meu Perfil</h2>
+
+
+        <div class="perfil-container">
+
+
+            <!-- ÍCONE DO PERFIL -->
+
+            <div class="perfil-avatar">
+
+                👤
+
+            </div>
+
+
+            <!-- SAUDAÇÃO -->
+            <div class="perfil-boas-vindas">
+
+                <h3 id="mensagemPerfil">
+                    Olá!
+                </h3>
+
+                <p id="subMensagemPerfil">
+                    Seja bem-vindo(a) à Madame Moka.
+                </p>
+
+            </div>
+
+
+            <!-- DADOS DA CONTA -->
+
+            <div class="perfil-secao">
+
+                <h3>
+                    Dados da minha conta
+                </h3>
+
+
+                <div class="perfil-dados">
+
+
+                    <!-- NOME -->
+
+                    <div class="perfil-campo">
+
+                        <strong>
+                            Nome
+                        </strong>
+
+                        <span id="nomePerfil"></span>
+
+                    </div>
+
+
+
+                    <!-- E-MAIL -->
+
+                    <div class="perfil-campo">
+
+                        <strong>
+                            E-mail
+                        </strong>
+
+                        <span id="emailPerfil"></span>
+                    </div>
+
+
+
+                    <!-- TELEFONE -->
+
+                    <div class="perfil-campo">
+
+                        <strong>
+                            Telefone
+                        </strong>
+
+                        <span id="telefonePerfil"></span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PEDIDOS -->
+
+            <div class="perfil-pedidos">
+
+                <div>
+
+                    <span class="perfil-pedidos-icone">
+                        🛒
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            Meus pedidos
+                        </strong>
+
+                        <p>
+                            Veja os produtos do seu carrinho.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <a th:href="@{/pedidos}">
+                    Ver pedidos
+                </a>
+
+            </div>
+
+
+
+            <!-- SAIR -->
+
+            <button
+                    class="perfil-sair"
+                    onclick="sair(event)">
+
+                Sair da conta
+
+            </button>
+
+
+            <!-- VOLTAR -->
+
+            <a th:href="@{/produtos}"
+               class="perfil-voltar">
+
+                ← Voltar para os produtos
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+    // ================= VERIFICAR LOGIN =================
+
+    fetch("/cliente/verificar")
+
+        .then(response => response.text())
+
+        .then(resultado => {
+
+            // ================= NÃO ESTÁ LOGADO =================
+
+            if (resultado === "NAO_LOGADO") {
+
+                document.getElementById("mensagemPerfil").textContent =
+                    "Você não está logado.";
+
+                document.getElementById("subMensagemPerfil").textContent =
+                    "Entre na sua conta para acessar seu perfil.";
+
+                document.querySelector(".perfil-secao").style.display =
+                    "none";
+
+                document.querySelector(".perfil-pedidos").style.display =
+                    "none";
+
+                document.querySelector(".perfil-sair").style.display =
+                    "none";
+
+                return;
+            }
+
+
+            // ================= ESTÁ LOGADO =================
+
+            fetch("/cliente/perfil")
+
+                .then(response => response.json())
+
+                .then(cliente => {
+
+                    document.getElementById("nomePerfil").textContent =
+                        cliente.nome;
+
+                    document.getElementById("emailPerfil").textContent =
+                        cliente.email;
+
+                    document.getElementById("telefonePerfil").textContent =
+                        cliente.telefone;
+
+                    document.getElementById("mensagemPerfil").textContent =
+                        "Olá, " + cliente.nome + "!";
+
+                });
+
+        })
+
+        .catch(error => {
+
+            console.error(error);
+
+            document.getElementById("mensagemPerfil").textContent =
+                "Não foi possível carregar o perfil.";
+
+            document.getElementById("subMensagemPerfil").textContent =
+                "";
+
+        });
+
+
+
+    // ================= SAIR =================
+
+    function sair(event) {
+
+        event.preventDefault();
+
+        fetch("/cliente/sair", {
+
+            method: "POST"
+
+        })
+
+        .then(response => response.text())
+
+        .then(resultado => {
+
+            if (resultado === "LOGOUT_OK") {
+
+                alert("Você saiu da sua conta.");
+
+                window.location.href = "/produtos";
+
+            }
+
+        })
+
+        .catch(error => {
+
+            console.error(error);
+
+            alert("Erro ao sair da conta.");
+
+        });
+
+    }
+
+</script>
+
+
+</body>
+
+</html>
