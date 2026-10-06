@@ -25,53 +25,44 @@
 
         <div class="container">
 
-            <a th:href="@{/}" class="logo">
+            <div class="logo">
 
-                <img th:src="@{/img/logo.png}"
-                     alt="Madame Moka">
+                <a th:href="@{/}">
 
-            </a>
+                    <img th:src="@{/img/logo.png}"
+                         alt="Madame Moka">
+
+                </a>
+
+            </div>
 
 
             <ul class="nav-menu">
 
                 <li>
-
                     <a th:href="@{/}">
                         Home
                     </a>
-
                 </li>
 
-
                 <li>
-
                     <a th:href="@{/produtos}">
                         Produtos
                     </a>
-
                 </li>
 
-
                 <li>
-
                     <a th:href="@{/pedidos}">
                         🛒 Carrinho
                         <span id="quantidadeCarrinho">0</span>
                     </a>
-
                 </li>
 
-
                 <li>
-
                     <a th:href="@{/perfil}"
                        title="Meu Perfil">
-
                         👤
-
                     </a>
-
                 </li>
 
             </ul>
@@ -90,13 +81,36 @@
 
     <div class="container">
 
-        <h2>Meu Carrinho</h2>
+        <h2>
+            Meu Carrinho
+        </h2>
 
 
-        <div id="listaCarrinho"></div>
+        <div id="listaCarrinho"
+             class="lista-carrinho">
+        </div>
 
 
-        <h3 id="totalCarrinho"></h3>
+        <div class="carrinho-total">
+
+            <h3 id="totalCarrinho"></h3>
+
+        </div>
+
+
+        <div id="areaFinalizar"
+             class="area-finalizar">
+
+            <button
+                    id="btnFinalizar"
+                    class="btn-carrinho"
+                    onclick="abrirModalConfirmacao()">
+
+                Finalizar compra
+
+            </button>
+
+        </div>
 
     </div>
 
@@ -104,7 +118,347 @@
 
 
 
-<!-- ================= SCRIPT ================= -->
+<!-- ================= MODAL CONFIRMAÇÃO ================= -->
+
+<div id="modalConfirmacao"
+     class="modal-compra">
+
+
+    <div class="modal-compra-conteudo">
+
+
+        <!-- CABEÇALHO -->
+
+        <div class="modal-compra-header">
+
+            <div>
+
+                <h2>
+                    Finalizar pedido
+                </h2>
+
+                <p>
+                    Confira os detalhes da sua compra
+                </p>
+
+            </div>
+
+
+            <button
+                    class="modal-compra-fechar"
+                    onclick="fecharModalConfirmacao()">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+
+        <!-- ================= RESUMO ================= -->
+
+        <div class="modal-compra-secao">
+
+            <h3>
+                🛍️ Resumo do pedido
+            </h3>
+
+
+            <div id="resumoConfirmacao"
+                 class="resumo-confirmacao">
+            </div>
+
+
+            <div class="modal-compra-total">
+
+                <span>
+                    Total
+                </span>
+
+                <strong id="totalConfirmacao">
+                    R$ 0,00
+                </strong>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= RECEBIMENTO ================= -->
+
+        <div class="modal-compra-secao">
+
+            <h3>
+                🚚 Como deseja receber?
+            </h3>
+
+
+            <div class="opcoes-compra">
+
+
+                <label class="opcao-compra">
+
+                    <input
+                            type="radio"
+                            name="tipoEntrega"
+                            value="ENTREGA"
+                            onchange="alternarEndereco()">
+
+                    <span>
+
+                        <strong>
+                            Entrega
+                        </strong>
+
+                        <small>
+                            Receba seu pedido no endereço informado
+                        </small>
+
+                    </span>
+
+                </label>
+
+
+
+                <label class="opcao-compra">
+
+                    <input
+                            type="radio"
+                            name="tipoEntrega"
+                            value="RETIRADA"
+                            onchange="alternarEndereco()">
+
+                    <span>
+
+                        <strong>
+                            Retirar na cafeteria
+                        </strong>
+
+                        <small>
+                            Retire seu pedido na Madame Moka
+                        </small>
+
+                    </span>
+
+                </label>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= ENDEREÇO ================= -->
+
+        <div id="areaEndereco"
+             class="modal-compra-secao endereco-compra"
+             style="display: none;">
+
+
+            <h3>
+                🏠 Endereço de entrega
+            </h3>
+
+
+            <div class="formulario-compra">
+
+
+                <div class="campo-compra campo-cep">
+
+                    <label for="cep">
+                        CEP
+                    </label>
+
+                    <input
+                            type="text"
+                            id="cep"
+                            placeholder="00000-000"
+                            maxlength="9">
+
+                </div>
+
+
+
+                <div class="campo-compra campo-rua">
+
+                    <label for="rua">
+                        Rua
+                    </label>
+
+                    <input
+                            type="text"
+                            id="rua"
+                            placeholder="Nome da rua">
+
+                </div>
+
+
+
+                <div class="campo-compra campo-numero">
+
+                    <label for="numero">
+                        Número
+                    </label>
+
+                    <input
+                            type="text"
+                            id="numero"
+                            placeholder="Número">
+
+                </div>
+
+
+
+                <div class="campo-compra campo-complemento">
+
+                    <label for="complemento">
+                        Complemento
+                    </label>
+
+                    <input
+                            type="text"
+                            id="complemento"
+                            placeholder="Apartamento, casa...">
+
+                </div>
+
+
+
+                <div class="campo-compra">
+
+                    <label for="bairro">
+                        Bairro
+                    </label>
+
+                    <input
+                            type="text"
+                            id="bairro"
+                            placeholder="Bairro">
+
+                </div>
+
+
+
+                <div class="campo-compra">
+
+                    <label for="cidade">
+                        Cidade
+                    </label>
+
+                    <input
+                            type="text"
+                            id="cidade"
+                            placeholder="Cidade">
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= PAGAMENTO ================= -->
+
+        <div class="modal-compra-secao">
+
+            <h3>
+                💳 Forma de pagamento
+            </h3>
+
+
+            <div class="opcoes-pagamento">
+
+
+                <label class="pagamento-option">
+
+                    <input
+                            type="radio"
+                            name="formaPagamento"
+                            value="PIX">
+
+                    <span>
+                        Pix
+                    </span>
+
+                </label>
+
+
+
+                <label class="pagamento-option">
+
+                    <input
+                            type="radio"
+                            name="formaPagamento"
+                            value="CARTAO">
+
+                    <span>
+                        Cartão
+                    </span>
+
+                </label>
+
+
+
+                <label class="pagamento-option">
+
+                    <input
+                            type="radio"
+                            name="formaPagamento"
+                            value="DINHEIRO">
+
+                    <span>
+                        Dinheiro
+                    </span>
+
+                </label>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= BOTÕES ================= -->
+
+        <div class="modal-compra-acoes">
+
+
+            <button
+                    type="button"
+                    class="btn-modal-voltar"
+                    onclick="fecharModalConfirmacao()">
+
+                Voltar
+
+            </button>
+
+
+            <button
+                    type="button"
+                    class="btn-modal-confirmar"
+                    onclick="confirmarPedido()">
+
+                Confirmar pedido
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= JAVASCRIPT ================= -->
 
 <script>
 
@@ -114,11 +468,15 @@
     function carregarCarrinho() {
 
         let carrinho =
-            JSON.parse(localStorage.getItem("carrinho")) || [];
+            JSON.parse(
+                localStorage.getItem("carrinho")
+            ) || [];
 
 
         let lista =
-            document.getElementById("listaCarrinho");
+            document.getElementById(
+                "listaCarrinho"
+            );
 
 
         let total = 0;
@@ -134,17 +492,32 @@
 
         if (carrinho.length === 0) {
 
-            lista.innerHTML =
-                '<p class="carrinho-vazio">Seu carrinho está vazio.</p>';
+            lista.innerHTML = `
+
+                <p class="carrinho-vazio">
+                    Seu carrinho está vazio.
+                </p>
+
+            `;
 
 
-            document.getElementById("totalCarrinho").textContent = "";
+            document.getElementById(
+                "totalCarrinho"
+            ).textContent = "";
 
 
-            document.getElementById("quantidadeCarrinho").textContent = "0";
+            document.getElementById(
+                "quantidadeCarrinho"
+            ).textContent = "0";
+
+
+            document.getElementById(
+                "areaFinalizar"
+            ).style.display = "none";
 
 
             return;
+
         }
 
 
@@ -155,13 +528,15 @@
 
 
             let subtotal =
-                produto.preco * produto.quantidade;
+                produto.preco *
+                produto.quantidade;
 
 
             total += subtotal;
 
 
-            quantidadeTotal += produto.quantidade;
+            quantidadeTotal +=
+                produto.quantidade;
 
 
 
@@ -170,34 +545,43 @@
 
 
             item.className =
-                "menu-item";
-
+                "carrinho-item";
 
 
             item.innerHTML = `
 
-                <h3>
-                    ${produto.nome}
-                </h3>
+                <div class="carrinho-item-info">
 
+                    <h3>
+                        ${produto.nome}
+                    </h3>
 
-                <p>
-                    Quantidade: ${produto.quantidade}
-                </p>
+                    <p>
+                        Quantidade:
+                        <strong>
+                            ${produto.quantidade}
+                        </strong>
+                    </p>
 
+                    <p>
+                        Preço:
+                        R$ ${produto.preco
+                            .toFixed(2)
+                            .replace(".", ",")}
+                    </p>
 
-                <p>
-                    Preço: R$ ${produto.preco
-                        .toFixed(2)
-                        .replace(".", ",")}
-                </p>
+                    <p class="carrinho-subtotal">
 
+                        Subtotal:
+                        <strong>
+                            R$ ${subtotal
+                                .toFixed(2)
+                                .replace(".", ",")}
+                        </strong>
 
-                <p>
-                    Subtotal: R$ ${subtotal
-                        .toFixed(2)
-                        .replace(".", ",")}
-                </p>
+                    </p>
+
+                </div>
 
 
                 <button
@@ -217,18 +601,24 @@
 
 
 
-        // ================= QUANTIDADE =================
+        // ================= TOTAL =================
 
-        document.getElementById("quantidadeCarrinho").textContent =
+        document.getElementById(
+            "quantidadeCarrinho"
+        ).textContent =
             quantidadeTotal;
 
 
-
-        // ================= TOTAL =================
-
-        document.getElementById("totalCarrinho").textContent =
+        document.getElementById(
+            "totalCarrinho"
+        ).textContent =
             "Total: R$ " +
             total.toFixed(2).replace(".", ",");
+
+
+        document.getElementById(
+            "areaFinalizar"
+        ).style.display = "block";
 
     }
 
@@ -239,7 +629,9 @@
     function removerProduto(index) {
 
         let carrinho =
-            JSON.parse(localStorage.getItem("carrinho")) || [];
+            JSON.parse(
+                localStorage.getItem("carrinho")
+            ) || [];
 
 
         carrinho.splice(index, 1);
@@ -257,9 +649,503 @@
 
 
 
+    // ================= ABRIR MODAL =================
+
+    function abrirModalConfirmacao() {
+
+        let carrinho =
+            JSON.parse(
+                localStorage.getItem("carrinho")
+            ) || [];
+
+
+        if (carrinho.length === 0) {
+
+            alert(
+                "Seu carrinho está vazio."
+            );
+
+            return;
+
+        }
+
+
+        carregarResumo();
+
+
+        document.getElementById(
+            "modalConfirmacao"
+        ).style.display = "flex";
+
+
+        document.body.classList.add(
+            "modal-aberto"
+        );
+
+    }
+
+
+
+    // ================= FECHAR MODAL =================
+
+    function fecharModalConfirmacao() {
+
+        document.getElementById(
+            "modalConfirmacao"
+        ).style.display = "none";
+
+
+        document.body.classList.remove(
+            "modal-aberto"
+        );
+
+    }
+
+
+
+    // ================= RESUMO =================
+
+    function carregarResumo() {
+
+        let carrinho =
+            JSON.parse(
+                localStorage.getItem("carrinho")
+            ) || [];
+
+
+        let resumo =
+            document.getElementById(
+                "resumoConfirmacao"
+            );
+
+
+        let total = 0;
+
+
+        resumo.innerHTML = "";
+
+
+        carrinho.forEach(produto => {
+
+
+            let subtotal =
+                produto.preco *
+                produto.quantidade;
+
+
+            total += subtotal;
+
+
+            let item =
+                document.createElement("div");
+
+
+            item.className =
+                "resumo-produto";
+
+
+            item.innerHTML = `
+
+                <div>
+
+                    <strong>
+                        ${produto.nome}
+                    </strong>
+
+                    <small>
+                        ${produto.quantidade}x
+                    </small>
+
+                </div>
+
+
+                <strong>
+
+                    R$ ${subtotal
+                        .toFixed(2)
+                        .replace(".", ",")}
+
+                </strong>
+
+            `;
+
+
+            resumo.appendChild(item);
+
+        });
+
+
+        document.getElementById(
+            "totalConfirmacao"
+        ).textContent =
+
+            "R$ " +
+            total.toFixed(2).replace(".", ",");
+
+    }
+
+
+
+    // ================= ALTERNAR ENDEREÇO =================
+
+    function alternarEndereco() {
+
+        let tipo =
+            document.querySelector(
+                'input[name="tipoEntrega"]:checked'
+            );
+
+
+        if (!tipo) {
+            return;
+        }
+
+
+        let areaEndereco =
+            document.getElementById(
+                "areaEndereco"
+            );
+
+
+        if (tipo.value === "ENTREGA") {
+
+            areaEndereco.style.display =
+                "block";
+
+        } else {
+
+            areaEndereco.style.display =
+                "none";
+
+        }
+
+    }
+
+
+
+    // ================= CONFIRMAR PEDIDO =================
+
+    function confirmarPedido() {
+
+
+        let carrinho =
+            JSON.parse(
+                localStorage.getItem("carrinho")
+            ) || [];
+
+
+        if (carrinho.length === 0) {
+
+            alert(
+                "Seu carrinho está vazio."
+            );
+
+            return;
+
+        }
+
+
+
+        // ================= TIPO DE ENTREGA =================
+
+        let tipoEntrega =
+            document.querySelector(
+                'input[name="tipoEntrega"]:checked'
+            );
+
+
+        if (!tipoEntrega) {
+
+            alert(
+                "Escolha entre entrega ou retirada."
+            );
+
+            return;
+
+        }
+
+
+
+        // ================= PAGAMENTO =================
+
+        let formaPagamento =
+            document.querySelector(
+                'input[name="formaPagamento"]:checked'
+            );
+
+
+        if (!formaPagamento) {
+
+            alert(
+                "Escolha uma forma de pagamento."
+            );
+
+            return;
+
+        }
+
+
+
+        // ================= ENDEREÇO =================
+
+        let cep = "";
+        let rua = "";
+        let numero = "";
+        let complemento = "";
+        let bairro = "";
+        let cidade = "";
+
+
+        if (
+            tipoEntrega.value ===
+            "ENTREGA"
+        ) {
+
+
+            cep =
+                document.getElementById(
+                    "cep"
+                ).value.trim();
+
+
+            rua =
+                document.getElementById(
+                    "rua"
+                ).value.trim();
+
+
+            numero =
+                document.getElementById(
+                    "numero"
+                ).value.trim();
+
+
+            complemento =
+                document.getElementById(
+                    "complemento"
+                ).value.trim();
+
+
+            bairro =
+                document.getElementById(
+                    "bairro"
+                ).value.trim();
+
+
+            cidade =
+                document.getElementById(
+                    "cidade"
+                ).value.trim();
+
+
+
+            if (
+                cep === "" ||
+                rua === "" ||
+                numero === "" ||
+                bairro === "" ||
+                cidade === ""
+            ) {
+
+                alert(
+                    "Preencha os campos obrigatórios do endereço."
+                );
+
+                return;
+
+            }
+
+        }
+
+
+
+        // ================= TOTAL =================
+
+        let total = 0;
+
+
+        carrinho.forEach(produto => {
+
+            total +=
+                produto.preco *
+                produto.quantidade;
+
+        });
+
+
+
+        // ================= PEDIDO =================
+
+        let pedido = {
+
+            valorTotal: total,
+
+            produtos: carrinho,
+
+            cep: cep,
+
+            rua: rua,
+
+            numero: numero,
+
+            complemento: complemento,
+
+            bairro: bairro,
+
+            cidade: cidade,
+
+            formaPagamento:
+                formaPagamento.value,
+
+            tipoEntrega:
+                tipoEntrega.value
+
+        };
+
+
+
+        // ================= ENVIAR =================
+
+        fetch("/pedido/criar", {
+
+            method: "POST",
+
+            headers: {
+
+                "Content-Type":
+                    "application/json"
+
+            },
+
+            body: JSON.stringify(pedido)
+
+        })
+
+
+        .then(response =>
+            response.text()
+        )
+
+
+        .then(resultado => {
+
+
+            if (
+                resultado ===
+                "NAO_LOGADO"
+            ) {
+
+                alert(
+                    "Você precisa estar logado para finalizar a compra."
+                );
+
+
+                fecharModalConfirmacao();
+
+
+                window.location.href =
+                    "/produtos";
+
+
+                return;
+
+            }
+
+
+
+            if (
+                resultado ===
+                "CLIENTE_NAO_ENCONTRADO"
+            ) {
+
+                alert(
+                    "Cliente não encontrado."
+                );
+
+                return;
+
+            }
+
+
+
+            if (
+                resultado ===
+                "PEDIDO_OK"
+            ) {
+
+                alert(
+                    "Pedido realizado com sucesso!"
+                );
+
+
+                localStorage.removeItem(
+                    "carrinho"
+                );
+
+
+                fecharModalConfirmacao();
+
+
+                window.location.href =
+                    "/perfil";
+
+
+                return;
+
+            }
+
+
+
+            alert(
+                "Não foi possível realizar o pedido."
+            );
+
+        })
+
+
+        .catch(error => {
+
+            console.error(
+                "Erro ao criar pedido:",
+                error
+            );
+
+
+            alert(
+                "Ocorreu um erro ao finalizar o pedido."
+            );
+
+        });
+
+    }
+
+
+
     // ================= INICIAR =================
 
     carregarCarrinho();
+
+
+
+    // ================= FECHAR CLICANDO FORA =================
+
+    document.getElementById(
+        "modalConfirmacao"
+    ).addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target ===
+                this
+            ) {
+
+                fecharModalConfirmacao();
+
+            }
+
+        }
+    );
 
 
 </script>

@@ -1,7 +1,9 @@
 package senai499.com.br.MadameMoka.controller;
 
 import senai499.com.br.MadameMoka.model.Cliente;
+import senai499.com.br.MadameMoka.model.Pedido;
 import senai499.com.br.MadameMoka.repository.ClienteRepository;
+import senai499.com.br.MadameMoka.repository.PedidoRepository;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -9,12 +11,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.List;
+
 @Controller
 @RequestMapping("/cliente")
 public class ClienteController {
 
     @Autowired
     private ClienteRepository clienteRepository;
+
+
+    @Autowired
+    private PedidoRepository pedidoRepository;
 
 
     // ================= CADASTRO =================
@@ -79,6 +88,7 @@ public class ClienteController {
         return "LOGOUT_OK";
     }
 
+
     // ================= VERIFICAR LOGIN =================
 
     @GetMapping("/verificar")
@@ -91,6 +101,8 @@ public class ClienteController {
 
         return "LOGADO";
     }
+
+
     // ================= PERFIL =================
 
     @GetMapping("/perfil")
@@ -107,4 +119,23 @@ public class ClienteController {
         return clienteRepository.findById(clienteId)
                 .orElse(null);
     }
+
+
+    // ================= PEDIDOS DO CLIENTE =================
+
+    @GetMapping("/pedidos")
+    @ResponseBody
+    public List<Pedido> pedidos(HttpSession session) {
+
+        Long clienteId =
+                (Long) session.getAttribute("clienteLogado");
+
+        if (clienteId == null) {
+            return Collections.emptyList();
+        }
+
+        return pedidoRepository
+                .findByClienteIdOrderByDataDesc(clienteId);
+    }
+
 }

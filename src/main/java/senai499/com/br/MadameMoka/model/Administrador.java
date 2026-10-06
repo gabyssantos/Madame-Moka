@@ -1,12 +1,10 @@
 package senai499.com.br.MadameMoka.model;
 
 import jakarta.persistence.*;
-import java.util.List;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "cliente")
-public class Cliente {
+@Table(name = "administrador")
+public class Administrador {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,16 +15,10 @@ public class Cliente {
     @Column(unique = true, nullable = false)
     private String email;
 
-    private String telefone;
-
     private String senha;
 
-    @OneToMany(mappedBy = "cliente")
-    @JsonIgnore
-    private List<Pedido> pedidos;
 
-
-    public Cliente() {
+    public Administrador() {
     }
 
 
@@ -57,15 +49,6 @@ public class Cliente {
     }
 
 
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-
     public String getSenha() {
         return senha;
     }
@@ -74,12 +57,4 @@ public class Cliente {
         this.senha = senha;
     }
 
-
-    public List<Pedido> getPedidos() {
-        return pedidos;
-    }
-
-    public void setPedidos(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
-    }
 }

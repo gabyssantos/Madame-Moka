@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Madame Moka - Login Administrador</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <nav class="navbar">
+
+        <div class="container">
+
+            <div class="logo">
+
+                <a th:href="@{/}">
+
+                    <img th:src="@{/img/logo.png}"
+                         alt="Madame Moka">
+
+                </a>
+
+            </div>
+
+
+            <ul class="nav-menu">
+
+                <li>
+                    <a th:href="@{/}">
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/produtos}">
+                        Produtos
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+
+<section class="login-admin-pagina">
+
+    <div class="login-admin-container">
+
+        <h2>Área Administrativa</h2>
+
+        <p>
+            Entre com sua conta de administrador.
+        </p>
+
+
+        <form id="formLoginAdmin">
+
+
+            <input
+                    type="email"
+                    id="emailAdmin"
+                    placeholder="E-mail"
+                    required>
+
+
+            <input
+                    type="password"
+                    id="senhaAdmin"
+                    placeholder="Senha"
+                    required>
+
+
+            <button
+                    type="submit"
+                    class="btn-carrinho">
+
+                Entrar
+
+            </button>
+
+
+        </form>
+
+
+        <a th:href="@{/}" class="login-admin-voltar">
+
+            ← Voltar para o início
+
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<script>
+
+    document.getElementById("formLoginAdmin").addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+
+            let administrador = {
+
+                email: document.getElementById("emailAdmin").value,
+
+                senha: document.getElementById("senhaAdmin").value
+
+            };
+
+
+            fetch("/admin/login", {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type": "application/json"
+
+                },
+
+                body: JSON.stringify(administrador)
+
+            })
+
+            .then(response => response.text())
+
+            .then(resultado => {
+
+
+                if (resultado === "LOGIN_OK") {
+
+                    window.location.href = "/admin";
+
+                    return;
+
+                }
+
+
+                if (resultado === "LOGIN_INCORRETO") {
+
+                    alert("E-mail ou senha incorretos.");
+
+                    return;
+
+                }
+
+
+                alert("Erro ao realizar o login.");
+
+            })
+
+            .catch(error => {
+
+                console.error(error);
+
+                alert("Erro ao conectar com o servidor.");
+
+            });
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>

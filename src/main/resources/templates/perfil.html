@@ -25,8 +25,6 @@
 
         <div class="container">
 
-            <!-- LOGO -->
-
             <div class="logo">
 
                 <a th:href="@{/}">
@@ -38,8 +36,6 @@
 
             </div>
 
-
-            <!-- MENU -->
 
             <ul class="nav-menu">
 
@@ -91,16 +87,15 @@
         <div class="perfil-container">
 
 
-            <!-- ÍCONE DO PERFIL -->
+            <!-- AVATAR -->
 
             <div class="perfil-avatar">
-
                 👤
-
             </div>
 
 
-            <!-- SAUDAÇÃO -->
+            <!-- BOAS-VINDAS -->
+
             <div class="perfil-boas-vindas">
 
                 <h3 id="mensagemPerfil">
@@ -114,7 +109,8 @@
             </div>
 
 
-            <!-- DADOS DA CONTA -->
+
+            <!-- ================= DADOS ================= -->
 
             <div class="perfil-secao">
 
@@ -125,8 +121,6 @@
 
                 <div class="perfil-dados">
 
-
-                    <!-- NOME -->
 
                     <div class="perfil-campo">
 
@@ -139,9 +133,6 @@
                     </div>
 
 
-
-                    <!-- E-MAIL -->
-
                     <div class="perfil-campo">
 
                         <strong>
@@ -149,11 +140,9 @@
                         </strong>
 
                         <span id="emailPerfil"></span>
+
                     </div>
 
-
-
-                    <!-- TELEFONE -->
 
                     <div class="perfil-campo">
 
@@ -165,15 +154,17 @@
 
                     </div>
 
+
                 </div>
 
             </div>
 
 
 
-            <!-- PEDIDOS -->
+            <!-- ================= PEDIDOS ================= -->
 
             <div class="perfil-pedidos">
+
 
                 <div>
 
@@ -188,7 +179,7 @@
                         </strong>
 
                         <p>
-                            Veja os produtos do seu carrinho.
+                            Acompanhe seus pedidos realizados.
                         </p>
 
                     </div>
@@ -196,15 +187,20 @@
                 </div>
 
 
-                <a th:href="@{/pedidos}">
-                    Ver pedidos
-                </a>
+                <div id="listaPedidosCliente">
+
+                    <p>
+                        Carregando pedidos...
+                    </p>
+
+                </div>
+
 
             </div>
 
 
 
-            <!-- SAIR -->
+            <!-- ================= SAIR ================= -->
 
             <button
                     class="perfil-sair"
@@ -215,7 +211,7 @@
             </button>
 
 
-            <!-- VOLTAR -->
+            <!-- ================= VOLTAR ================= -->
 
             <a th:href="@{/produtos}"
                class="perfil-voltar">
@@ -237,6 +233,7 @@
 
 <script>
 
+
     // ================= VERIFICAR LOGIN =================
 
     fetch("/cliente/verificar")
@@ -245,7 +242,6 @@
 
         .then(resultado => {
 
-            // ================= NÃO ESTÁ LOGADO =================
 
             if (resultado === "NAO_LOGADO") {
 
@@ -265,10 +261,11 @@
                     "none";
 
                 return;
+
             }
 
 
-            // ================= ESTÁ LOGADO =================
+            // ================= PERFIL =================
 
             fetch("/cliente/perfil")
 
@@ -290,7 +287,13 @@
 
                 });
 
+
+            // ================= PEDIDOS =================
+
+            carregarPedidosCliente();
+
         })
+
 
         .catch(error => {
 
@@ -306,11 +309,256 @@
 
 
 
-    // ================= SAIR =================
+    /* ========================
+       CARREGAR PEDIDOS
+    ======================== */
+
+    function carregarPedidosCliente() {
+
+        fetch("/cliente/pedidos")
+
+            .then(response => {
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Não foi possível carregar os pedidos."
+                    );
+
+                }
+
+                return response.json();
+
+            })
+
+
+            .then(pedidos => {
+
+
+                const lista =
+                    document.getElementById(
+                        "listaPedidosCliente"
+                    );
+
+
+                lista.innerHTML = "";
+
+
+                // ================= NENHUM PEDIDO =================
+
+                if (pedidos.length === 0) {
+
+                    lista.innerHTML = `
+
+                        <p>
+                            Você ainda não realizou nenhum pedido.
+                        </p>
+
+                    `;
+
+                    return;
+
+                }
+
+
+
+                // ================= PEDIDOS =================
+
+                pedidos.forEach(pedido => {
+
+
+                    let data =
+                        "Data não informada";
+
+
+                    if (pedido.data) {
+
+                        data = new Date(pedido.data)
+                            .toLocaleString("pt-BR");
+
+                    }
+
+
+
+                    let valor =
+                        Number(pedido.valorTotal)
+                            .toFixed(2)
+                            .replace(".", ",");
+
+
+
+                    // ================= PRODUTOS =================
+
+                    let produtosHTML = "";
+
+
+                    if (
+                        pedido.produtos &&
+                        pedido.produtos.length > 0
+                    ) {
+
+
+                        produtosHTML = `
+
+                            <div class="pedido-produtos">
+
+                                <div class="pedido-produtos-titulo">
+
+                                    🛒 <strong>
+                                        Produtos do pedido
+                                    </strong>
+
+                                </div>
+
+                        `;
+
+
+                        pedido.produtos.forEach(produto => {
+
+
+                            let preco =
+                                Number(produto.preco)
+                                    .toFixed(2)
+                                    .replace(".", ",");
+
+
+                            let subtotal =
+                                Number(
+                                    produto.preco *
+                                    produto.quantidade
+                                )
+                                .toFixed(2)
+                                .replace(".", ",");
+
+
+
+                            produtosHTML += `
+
+                                <div class="pedido-produto">
+
+                                    <strong>
+                                        ${produto.nome}
+                                    </strong>
+
+                                    <p>
+                                        Quantidade:
+                                        ${produto.quantidade}
+                                    </p>
+
+                                    <p>
+                                        Preço:
+                                        R$ ${preco}
+                                    </p>
+
+                                    <p>
+                                        Subtotal:
+                                        R$ ${subtotal}
+                                    </p>
+
+                                </div>
+
+                            `;
+
+                        });
+
+
+                        produtosHTML += `
+
+                            </div>
+
+                        `;
+
+                    }
+
+
+
+                    // ================= CARD DO PEDIDO =================
+
+                    const item =
+                        document.createElement("div");
+
+
+                    item.className =
+                        "pedido-cliente";
+
+
+                    item.innerHTML = `
+
+                        <div class="pedido-cliente-cabecalho">
+
+                            <p>
+                                <strong>
+                                    Pedido #${pedido.id}
+                                </strong>
+                            </p>
+
+                            <p>
+                                Data:
+                                ${data}
+                            </p>
+
+                            <span class="pedido-cliente-status">
+                                ${pedido.status}
+                            </span>
+
+                        </div>
+
+
+                        ${produtosHTML}
+
+
+                        <div class="pedido-cliente-total">
+
+                            Total do pedido:
+
+                            <strong>
+                                R$ ${valor}
+                            </strong>
+
+                        </div>
+
+                    `;
+
+
+                    lista.appendChild(item);
+
+                });
+
+            })
+
+
+            .catch(error => {
+
+                console.error(
+                    "Erro ao carregar pedidos:",
+                    error
+                );
+
+
+                document.getElementById(
+                    "listaPedidosCliente"
+                ).innerHTML = `
+
+                    <p>
+                        Não foi possível carregar seus pedidos.
+                    </p>
+
+                `;
+
+            });
+
+    }
+
+
+
+    /* ========================
+       SAIR DA CONTA
+    ======================== */
 
     function sair(event) {
 
         event.preventDefault();
+
 
         fetch("/cliente/sair", {
 
@@ -318,29 +566,39 @@
 
         })
 
+
         .then(response => response.text())
+
 
         .then(resultado => {
 
+
             if (resultado === "LOGOUT_OK") {
 
-                alert("Você saiu da sua conta.");
+                alert(
+                    "Você saiu da sua conta."
+                );
 
-                window.location.href = "/produtos";
+                window.location.href =
+                    "/produtos";
 
             }
 
         })
 
+
         .catch(error => {
 
             console.error(error);
 
-            alert("Erro ao sair da conta.");
+            alert(
+                "Erro ao sair da conta."
+            );
 
         });
 
     }
+
 
 </script>
 
