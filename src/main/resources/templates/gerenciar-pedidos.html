@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Madame Moka - Gerenciar Pedidos</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+    <nav class="navbar">
+
+        <div class="container">
+
+            <!-- LOGO -->
+
+            <div class="logo">
+
+                <a th:href="@{/}">
+
+                    <img th:src="@{/img/logo.png}"
+                         alt="Madame Moka">
+
+                </a>
+
+            </div>
+
+
+            <!-- MENU -->
+
+            <ul class="nav-menu">
+
+                <li>
+
+                    <a th:href="@{/}">
+                        Home
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a th:href="@{/produtos}">
+                        Produtos
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a th:href="@{/admin}">
+                        Administração
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="#"
+                       onclick="sairAdmin(event)">
+
+                        🚪 Sair
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+
+<!-- ================= GERENCIAR PEDIDOS ================= -->
+
+<section class="admin-pagina">
+
+    <div class="container">
+
+
+        <h1>
+            Gerenciar Pedidos
+        </h1>
+
+
+        <p class="admin-subtitulo">
+
+            Visualize os pedidos realizados pelos clientes.
+
+        </p>
+
+
+
+        <!-- ================= ÁREA DOS PEDIDOS ================= -->
+
+        <div class="admin-acoes">
+
+
+            <h2>
+                Pedidos realizados
+            </h2>
+
+
+            <div id="mensagemPedidos">
+
+                <p>
+                    Carregando pedidos...
+                </p>
+
+            </div>
+
+
+            <div id="listaPedidos"></div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+
+    // ================= CARREGAR PEDIDOS =================
+
+    function carregarPedidos() {
+
+        fetch("/admin/pedidos/listar")
+
+            .then(response => {
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Não foi possível carregar os pedidos."
+                    );
+
+                }
+
+                return response.json();
+
+            })
+
+
+            .then(pedidos => {
+
+                const lista =
+                    document.getElementById("listaPedidos");
+
+                const mensagem =
+                    document.getElementById("mensagemPedidos");
+
+
+                lista.innerHTML = "";
+
+
+                // ================= NENHUM PEDIDO =================
+
+                if (pedidos.length === 0) {
+
+                    mensagem.innerHTML =
+                        "<p>Nenhum pedido realizado ainda.</p>";
+
+                    return;
+
+                }
+
+
+                mensagem.innerHTML = "";
+
+
+                // ================= MOSTRAR PEDIDOS =================
+
+                pedidos.forEach(pedido => {
+
+
+                    const item =
+                        document.createElement("div");
+
+
+                    item.className =
+                        "admin-card";
+
+
+                    // ================= DATA =================
+
+                    let data =
+                        "Data não informada";
+
+
+                    if (pedido.data) {
+
+                        data =
+                            new Date(pedido.data)
+                                .toLocaleString("pt-BR");
+
+                    }
+
+
+                    // ================= CLIENTE =================
+
+                    let cliente =
+                        "Cliente não informado";
+
+
+                    if (pedido.cliente) {
+
+                        cliente =
+                            pedido.cliente.nome;
+
+                    }
+
+
+                    // ================= VALOR =================
+
+                    let valor =
+                        Number(pedido.valorTotal)
+                            .toFixed(2)
+                            .replace(".", ",");
+
+
+
+                    // ================= PRODUTOS =================
+
+                    let produtosHTML = "";
+
+
+                    if (
+                        pedido.produtos &&
+                        pedido.produtos.length > 0
+                    ) {
+
+                        produtosHTML = `
+
+                            <div style="
+                                margin-top: 20px;
+                                padding-top: 15px;
+                                border-top: 1px solid #D2B48C;
+                            ">
+
+                                <strong>
+                                    🛒 Produtos do pedido:
+                                </strong>
+
+                                <div style="margin-top: 10px;">
+
+                        `;
+
+
+                        pedido.produtos.forEach(produto => {
+
+
+                            let preco =
+                                Number(produto.preco)
+                                    .toFixed(2)
+                                    .replace(".", ",");
+
+
+                            let subtotal =
+                                Number(
+                                    produto.preco *
+                                    produto.quantidade
+                                )
+                                .toFixed(2)
+                                .replace(".", ",");
+
+
+                            produtosHTML += `
+
+                                <div style="
+                                    padding: 8px 0;
+                                ">
+
+                                    <strong>
+                                        ${produto.nome}
+                                    </strong>
+
+                                    <br>
+
+                                    <span>
+                                        Quantidade:
+                                        ${produto.quantidade}
+                                    </span>
+
+                                    <br>
+
+                                    <span>
+                                        Preço:
+                                        R$ ${preco}
+                                    </span>
+
+                                    <br>
+
+                                    <span>
+                                        Subtotal:
+                                        R$ ${subtotal}
+                                    </span>
+
+                                </div>
+
+                            `;
+
+                        });
+
+
+                        produtosHTML += `
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    } else {
+
+                        produtosHTML = `
+
+                            <p style="margin-top: 15px;">
+
+                                Nenhum produto registrado neste pedido.
+
+                            </p>
+
+                        `;
+
+                    }
+
+
+
+                    // ================= HTML DO PEDIDO =================
+
+                    item.innerHTML = `
+
+                        <div>
+
+                            <h3>
+                                Pedido #${pedido.id}
+                            </h3>
+
+
+                            <p>
+
+                                <strong>
+                                    Cliente:
+                                </strong>
+
+                                ${cliente}
+
+                            </p>
+
+
+                            <p>
+
+                                <strong>
+                                    Data:
+                                </strong>
+
+                                ${data}
+
+                            </p>
+
+
+                            <p>
+
+                                <strong>
+                                    Valor total:
+                                </strong>
+
+                                R$ ${valor}
+
+                            </p>
+
+
+                            <p>
+
+                                <strong>
+                                    Status:
+                                </strong>
+
+                                ${pedido.status}
+
+                            </p>
+
+
+                            ${produtosHTML}
+
+
+
+                            <!-- ================= ALTERAR STATUS ================= -->
+
+                            <div style="margin-top: 20px;">
+
+                                <strong>
+                                    Alterar status:
+                                </strong>
+
+
+                                <select
+                                    class="status-select"
+                                    onchange="alterarStatus(${pedido.id}, this.value)">
+
+                                    <option
+                                        value="PENDENTE"
+                                        ${pedido.status === "PENDENTE" ? "selected" : ""}>
+
+                                        Pendente
+
+                                    </option>
+
+
+                                    <option
+                                        value="EM_PREPARO"
+                                        ${pedido.status === "EM_PREPARO" ? "selected" : ""}>
+
+                                        Em preparo
+
+                                    </option>
+
+
+                                    <option
+                                        value="PRONTO"
+                                        ${pedido.status === "PRONTO" ? "selected" : ""}>
+
+                                        Pronto
+
+                                    </option>
+
+
+                                    <option
+                                        value="FINALIZADO"
+                                        ${pedido.status === "FINALIZADO" ? "selected" : ""}>
+
+                                        Finalizado
+
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+
+                    lista.appendChild(item);
+
+                });
+
+            })
+
+
+            .catch(error => {
+
+                console.error(
+                    "Erro ao carregar pedidos:",
+                    error
+                );
+
+
+                document.getElementById(
+                    "mensagemPedidos"
+                ).innerHTML =
+                    "<p>Erro ao carregar os pedidos.</p>";
+
+            });
+
+    }
+
+
+
+    // ================= ALTERAR STATUS =================
+
+    function alterarStatus(id, status) {
+
+        const dados =
+            new URLSearchParams();
+
+
+        dados.append(
+            "id",
+            id
+        );
+
+
+        dados.append(
+            "status",
+            status
+        );
+
+
+        fetch("/admin/pedidos/status", {
+
+            method: "POST",
+
+            headers: {
+
+                "Content-Type":
+                    "application/x-www-form-urlencoded"
+
+            },
+
+            body: dados
+
+        })
+
+
+        .then(response => response.text())
+
+
+        .then(resultado => {
+
+
+            if (resultado === "STATUS_ATUALIZADO") {
+
+                alert(
+                    "Status do pedido atualizado!"
+                );
+
+
+                carregarPedidos();
+
+                return;
+
+            }
+
+
+            if (resultado === "NAO_LOGADO") {
+
+                window.location.href =
+                    "/login-admin";
+
+                return;
+
+            }
+
+
+            if (resultado === "PEDIDO_NAO_ENCONTRADO") {
+
+                alert(
+                    "Pedido não encontrado."
+                );
+
+                return;
+
+            }
+
+
+            alert(
+                "Não foi possível atualizar o status."
+            );
+
+        })
+
+
+        .catch(error => {
+
+            console.error(
+                "Erro ao alterar o status:",
+                error
+            );
+
+
+            alert(
+                "Erro ao atualizar o status."
+            );
+
+        });
+
+    }
+
+
+
+    // ================= SAIR =================
+
+    function sairAdmin(event) {
+
+        event.preventDefault();
+
+
+        fetch("/admin/sair", {
+
+            method: "POST"
+
+        })
+
+
+        .then(response => response.text())
+
+
+        .then(resultado => {
+
+            if (resultado === "LOGOUT_OK") {
+
+                window.location.href =
+                    "/login-admin";
+
+            } else {
+
+                alert(
+                    "Não foi possível sair da conta."
+                );
+
+            }
+
+        })
+
+
+        .catch(error => {
+
+            console.error(
+                "Erro ao sair:",
+                error
+            );
+
+
+            alert(
+                "Erro ao sair da conta."
+            );
+
+        });
+
+    }
+
+
+
+    // ================= INICIAR =================
+
+    carregarPedidos();
+
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,47 +1,525 @@
-<!DOCTYPE html>
 
-<html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-    <title>Madame Moka</title>
-    <link rel="stylesheet" href="/static/css/style.css">
-
-    <!-- CSS próprio -->
-    <link rel="stylesheet" href="/static/css/style.css">
-
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-
-
+    <title>Madame Moka - Meu Carrinho</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
 
-    <!-- ================= HEADER ================= -->
-    <header class="header">
-        <nav class="navbar">
-            <div class="container">
+<header class="header">
+    <nav class="navbar">
+        <div class="container">
+            <a th:href="@{/}" class="logo">
+                <img th:src="@{/img/logo.png}" alt="Madame Moka">
+            </a>
+            <ul class="nav-menu">
+                <li><a th:href="@{/}">Home</a></li>
+                <li><a th:href="@{/produtos}">Produtos</a></li>
+                <li><a th:href="@{/pedidos}">🛒 Carrinho</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
 
-                <div class="logo">
-                    <a href="../index.html">
-                        <img src="/static/img/logo.png" alt="Madame Moka">
-                    </a>
+<main class="menu">
+    <div class="container">
+        <h2>Meu Carrinho</h2>
+        <div id="listaCarrinho" class="lista-carrinho"></div>
+
+        <div id="areaTotal" class="carrinho-total">
+            <h3 id="totalCarrinho">Total: R$ 0,00</h3>
+        </div>
+
+        <div id="areaFinalizar" class="area-finalizar">
+            <button type="button" class="btn-carrinho" onclick="abrirConfirmacao()">
+                Finalizar compra
+            </button>
+        </div>
+    </div>
+</main>
+
+<!-- MODAL DE CONFIRMAÇÃO DA COMPRA -->
+<div id="modalCompra" class="modal-compra">
+    <div class="modal-compra-conteudo">
+
+        <div class="modal-compra-header">
+            <div>
+                <h2>Finalizar compra</h2>
+                <p>Confira seu pedido antes de confirmar.</p>
+            </div>
+            <button type="button" class="modal-compra-fechar"
+                    onclick="fecharConfirmacao()" aria-label="Fechar">
+                &times;
+            </button>
+        </div>
+
+        <section class="modal-compra-secao">
+            <h3>Resumo do pedido</h3>
+            <div id="resumoProdutos" class="resumo-confirmacao"></div>
+            <div class="modal-compra-total">
+                <span>Total da compra</span>
+                <strong id="totalConfirmacao">R$ 0,00</strong>
+            </div>
+        </section>
+
+        <section class="modal-compra-secao">
+            <h3>Como deseja receber?</h3>
+            <div class="opcoes-compra">
+                <label class="opcao-compra">
+                    <input type="radio" name="tipoEntrega" value="ENTREGA"
+                           checked onchange="alterarTipoEntrega()">
+                    <span>
+                        <strong>Entrega</strong>
+                        <small>Receba seu pedido no endereço informado.</small>
+                    </span>
+                </label>
+
+                <label class="opcao-compra">
+                    <input type="radio" name="tipoEntrega" value="RETIRADA"
+                           onchange="alterarTipoEntrega()">
+                    <span>
+                        <strong>Retirada</strong>
+                        <small>Retire seu pedido na cafeteria.</small>
+                    </span>
+                </label>
+            </div>
+        </section>
+
+        <section id="secaoEndereco" class="modal-compra-secao">
+            <h3>Endereço para entrega</h3>
+            <div class="formulario-compra">
+                <div class="campo-compra campo-rua">
+                    <label for="rua">Rua / Avenida</label>
+                    <input type="text" id="rua" placeholder="Nome da rua">
                 </div>
 
-                <ul class="nav-menu">
-                    <li><a href="/index.html">Home</a></li>
-                    <li><a href="/templates/produtos/produtos.html">Produtos</a></li>
-                    <li><a href="/templates/pedidos/pedidos.html">Pedidos</a></li>
-                </ul>
+                <div class="campo-compra">
+                    <label for="numero">Número</label>
+                    <input type="text" id="numero" placeholder="Número">
+                </div>
 
+                <div class="campo-compra">
+                    <label for="cep">CEP</label>
+                    <input type="text" id="cep" placeholder="00000-000" maxlength="9">
+                </div>
+
+                <div class="campo-compra">
+                    <label for="bairro">Bairro</label>
+                    <input type="text" id="bairro" placeholder="Seu bairro">
+                </div>
+
+                <div class="campo-compra">
+                    <label for="cidade">Cidade</label>
+                    <input type="text" id="cidade" placeholder="Sua cidade">
+                </div>
+
+                <div class="campo-compra campo-complemento">
+                    <label for="complemento">Complemento (opcional)</label>
+                    <input type="text" id="complemento"
+                           placeholder="Apartamento, referência etc.">
+                </div>
             </div>
-        </nav>
-    </header>
-</body>
+        </section>
 
+        <section class="modal-compra-secao">
+            <h3>Forma de pagamento</h3>
+            <div class="opcoes-pagamento">
+                <label class="pagamento-option">
+                    <input type="radio" name="pagamento" value="PIX" checked>
+                    <span>PIX</span>
+                </label>
+                <label class="pagamento-option">
+                    <input type="radio" name="pagamento" value="CARTAO">
+                    <span>Cartão</span>
+                </label>
+                <label class="pagamento-option">
+                    <input type="radio" name="pagamento" value="DINHEIRO">
+                    <span>Dinheiro</span>
+                </label>
+            </div>
+        </section>
+
+        <div class="modal-compra-acoes">
+            <button type="button" class="btn-modal-voltar"
+                    onclick="fecharConfirmacao()">
+                Voltar ao carrinho
+            </button>
+            <button type="button" id="btnConfirmarCompra"
+                    class="btn-modal-confirmar" onclick="confirmarCompra()">
+                Confirmar compra
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL PERSONALIZADA DE SUCESSO -->
+<div id="modalSucesso" class="modal-sucesso"
+     role="dialog" aria-modal="true" aria-labelledby="tituloSucesso">
+    <div class="sucesso-conteudo">
+
+        <div class="sucesso-icone" aria-hidden="true">✓</div>
+
+        <p class="sucesso-subtitulo">MADAME MOKA</p>
+
+        <h2 id="tituloSucesso">Pedido confirmado!</h2>
+
+        <p class="sucesso-mensagem">
+            Seu pedido foi recebido com sucesso.
+        </p>
+
+        <p class="sucesso-detalhe">
+            Agradecemos por escolher a Madame Moka.
+            Preparamos tudo com muito carinho para você.
+        </p>
+
+        <div class="sucesso-divisor"></div>
+
+        <p class="sucesso-rodape">
+            Um momento especial começa com um bom café. ☕
+        </p>
+
+        <button type="button" class="btn-sucesso"
+                onclick="continuarAposCompra()">
+            Continuar
+        </button>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <p>© 2026 Madame Moka. Todos os direitos reservados.</p>
+    </div>
+</footer>
+
+<script>
+    let carrinho = [];
+
+    // CARREGAR CARRINHO
+    function carregarCarrinho() {
+        try {
+            carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+        } catch (erro) {
+            carrinho = [];
+        }
+
+        renderizarCarrinho();
+    }
+
+    // FORMATAR PREÇO
+    function formatarMoeda(valor) {
+        return Number(valor || 0).toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        });
+    }
+
+    // CALCULAR TOTAL
+    function calcularTotal() {
+        return carrinho.reduce((total, produto) => {
+            return total +
+                (Number(produto.preco) * Number(produto.quantidade || 1));
+        }, 0);
+    }
+
+    // MOSTRAR PRODUTOS DO CARRINHO
+    function renderizarCarrinho() {
+        const lista = document.getElementById("listaCarrinho");
+        const areaTotal = document.getElementById("areaTotal");
+        const areaFinalizar = document.getElementById("areaFinalizar");
+
+        lista.innerHTML = "";
+
+        if (carrinho.length === 0) {
+            lista.innerHTML = `
+                <div class="carrinho-vazio">
+                    <p>Seu carrinho está vazio. Escolha algo delicioso no nosso cardápio!</p>
+                </div>
+            `;
+
+            areaTotal.style.display = "none";
+            areaFinalizar.style.display = "none";
+            return;
+        }
+
+        areaTotal.style.display = "flex";
+        areaFinalizar.style.display = "flex";
+
+        carrinho.forEach((produto, indice) => {
+            const quantidade = Number(produto.quantidade || 1);
+            const subtotal = Number(produto.preco) * quantidade;
+
+            const item = document.createElement("div");
+            item.className = "carrinho-item";
+
+            const informacoes = document.createElement("div");
+            informacoes.className = "carrinho-item-info";
+
+            const nome = document.createElement("h3");
+            nome.textContent = produto.nome;
+
+            const preco = document.createElement("p");
+            preco.textContent = "Preço unitário: " + formatarMoeda(produto.preco);
+
+            const quantidadeTexto = document.createElement("p");
+            quantidadeTexto.textContent = "Quantidade: " + quantidade;
+
+            const subtotalTexto = document.createElement("p");
+            subtotalTexto.className = "carrinho-subtotal";
+            subtotalTexto.textContent = "Subtotal: " + formatarMoeda(subtotal);
+
+            informacoes.append(nome, preco, quantidadeTexto, subtotalTexto);
+
+            const remover = document.createElement("button");
+            remover.type = "button";
+            remover.className = "btn-carrinho";
+            remover.textContent = "Remover";
+            remover.addEventListener("click", function () {
+                removerProduto(indice);
+            });
+
+            item.append(informacoes, remover);
+            lista.appendChild(item);
+        });
+
+        document.getElementById("totalCarrinho").textContent =
+            "Total: " + formatarMoeda(calcularTotal());
+    }
+
+    // REMOVER PRODUTO
+    function removerProduto(indice) {
+        carrinho.splice(indice, 1);
+        localStorage.setItem("carrinho", JSON.stringify(carrinho));
+        renderizarCarrinho();
+    }
+
+    // ABRIR CONFIRMAÇÃO
+    function abrirConfirmacao() {
+        if (carrinho.length === 0) {
+            alert("Seu carrinho está vazio.");
+            return;
+        }
+
+        const resumo = document.getElementById("resumoProdutos");
+        resumo.innerHTML = "";
+
+        carrinho.forEach(produto => {
+            const quantidade = Number(produto.quantidade || 1);
+            const subtotal = Number(produto.preco) * quantidade;
+
+            const linha = document.createElement("div");
+            linha.className = "resumo-produto";
+
+            const detalhes = document.createElement("div");
+
+            const nome = document.createElement("strong");
+            nome.textContent = produto.nome;
+
+            const quantidadeTexto = document.createElement("small");
+            quantidadeTexto.textContent = quantidade + " × " +
+                formatarMoeda(produto.preco);
+
+            detalhes.append(nome, quantidadeTexto);
+
+            const valor = document.createElement("strong");
+            valor.textContent = formatarMoeda(subtotal);
+
+            linha.append(detalhes, valor);
+            resumo.appendChild(linha);
+        });
+
+        document.getElementById("totalConfirmacao").textContent =
+            formatarMoeda(calcularTotal());
+
+        document.getElementById("modalCompra").style.display = "flex";
+        document.body.classList.add("modal-aberto");
+    }
+
+    // FECHAR CONFIRMAÇÃO
+    function fecharConfirmacao() {
+        document.getElementById("modalCompra").style.display = "none";
+        document.body.classList.remove("modal-aberto");
+    }
+
+    // ALTERNAR ENTRE ENTREGA E RETIRADA
+    function alterarTipoEntrega() {
+        const tipo = document.querySelector(
+            'input[name="tipoEntrega"]:checked'
+        ).value;
+
+        const secaoEndereco = document.getElementById("secaoEndereco");
+        const campos = secaoEndereco.querySelectorAll("input");
+
+        secaoEndereco.style.display =
+            tipo === "ENTREGA" ? "block" : "none";
+
+        campos.forEach(campo => {
+            campo.required =
+                tipo === "ENTREGA" && campo.id !== "complemento";
+        });
+    }
+
+    // CONFIRMAR COMPRA
+    async function confirmarCompra() {
+        if (carrinho.length === 0) {
+            alert("Seu carrinho está vazio.");
+            fecharConfirmacao();
+            return;
+        }
+
+        const tipoEntrega = document.querySelector(
+            'input[name="tipoEntrega"]:checked'
+        ).value;
+
+        const pagamento = document.querySelector(
+            'input[name="pagamento"]:checked'
+        ).value;
+
+        let endereco = null;
+
+        if (tipoEntrega === "ENTREGA") {
+            const rua = document.getElementById("rua").value.trim();
+            const numero = document.getElementById("numero").value.trim();
+            const cep = document.getElementById("cep").value.trim();
+            const bairro = document.getElementById("bairro").value.trim();
+            const cidade = document.getElementById("cidade").value.trim();
+            const complemento =
+                document.getElementById("complemento").value.trim();
+
+            if (!rua || !numero || !cep || !bairro || !cidade) {
+                alert("Preencha todos os campos obrigatórios do endereço.");
+                return;
+            }
+
+            endereco = {
+                rua: rua,
+                numero: numero,
+                cep: cep,
+                bairro: bairro,
+                cidade: cidade,
+                complemento: complemento
+            };
+        }
+
+        // VERIFICAR LOGIN PELA SESSÃO DO SPRING BOOT
+        try {
+            const respostaLogin = await fetch("/cliente/verificar", {
+                method: "GET",
+                credentials: "same-origin",
+                cache: "no-store"
+            });
+
+            const statusLogin = (await respostaLogin.text()).trim();
+
+            if (!respostaLogin.ok || statusLogin !== "LOGADO") {
+                alert("Sua sessão não foi reconhecida. Entre novamente e tente concluir a compra.");
+                return;
+            }
+        } catch (erro) {
+            console.error("Erro ao verificar a sessão:", erro);
+            alert("Não foi possível verificar seu login. Tente novamente.");
+            return;
+        }
+
+        const botao = document.getElementById("btnConfirmarCompra");
+        botao.disabled = true;
+        botao.textContent = "Processando...";
+
+        const pedido = {
+            valorTotal: calcularTotal(),
+            produtos: carrinho,
+            tipoEntrega: tipoEntrega,
+            formaPagamento: pagamento,
+            endereco: endereco
+        };
+
+        try {
+            const resposta = await fetch("/pedido/criar", {
+                method: "POST",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(pedido)
+            });
+
+            const resultado = (await resposta.text()).trim();
+
+            if (!resposta.ok) {
+                throw new Error("Não foi possível registrar o pedido.");
+            }
+
+            if (resultado === "NAO_LOGADO") {
+                alert("Sua sessão expirou. Entre novamente para continuar.");
+                window.location.href = "/produtos";
+                return;
+            }
+
+            if (resultado === "CLIENTE_NAO_ENCONTRADO") {
+                alert("Não encontramos sua conta. Entre novamente.");
+                window.location.href = "/produtos";
+                return;
+            }
+
+            if (resultado === "PEDIDO_OK") {
+                localStorage.removeItem("carrinho");
+                carrinho = [];
+
+                fecharConfirmacao();
+                renderizarCarrinho();
+
+                document.getElementById("modalSucesso").style.display = "flex";
+                document.body.classList.add("modal-aberto");
+                document.querySelector("#modalSucesso .btn-sucesso").focus();
+
+                return;
+            }
+
+            alert("Não foi possível confirmar o pedido. Tente novamente.");
+
+        } catch (erro) {
+            console.error(erro);
+            alert("Ocorreu um erro ao finalizar a compra. Tente novamente.");
+
+        } finally {
+            botao.disabled = false;
+            botao.textContent = "Confirmar compra";
+        }
+    }
+
+    // CONTINUAR DEPOIS DA CONFIRMAÇÃO
+    function continuarAposCompra() {
+        document.getElementById("modalSucesso").style.display = "none";
+        document.body.classList.remove("modal-aberto");
+        window.location.href = "/perfil";
+    }
+
+    // FORMATAR O CEP
+    document.getElementById("cep").addEventListener("input", function () {
+        let valor = this.value.replace(/\D/g, "").slice(0, 8);
+
+        if (valor.length > 5) {
+            valor = valor.slice(0, 5) + "-" + valor.slice(5);
+        }
+
+        this.value = valor;
+    });
+
+    // FECHAR MODAL DE COMPRA AO CLICAR FORA
+    document.getElementById("modalCompra").addEventListener("click", function (evento) {
+        if (evento.target === this) {
+            fecharConfirmacao();
+        }
+    });
+
+    // INICIALIZAÇÃO
+    carregarCarrinho();
+    alterarTipoEntrega();
+</script>
+
+</body>
 </html>

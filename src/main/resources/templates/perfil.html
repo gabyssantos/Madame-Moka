@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Madame Moka - Meu Perfil</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+    <nav class="navbar">
+
+        <div class="container">
+
+            <div class="logo">
+
+                <a th:href="@{/}">
+
+                    <img th:src="@{/img/logo.png}"
+                         alt="Madame Moka">
+
+                </a>
+
+            </div>
+
+
+            <ul class="nav-menu">
+
+                <li>
+                    <a th:href="@{/}">
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/produtos}">
+                        Produtos
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/pedidos}">
+                        🛒 Carrinho
+                        <span id="quantidadeCarrinho">0</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/perfil}"
+                       title="Meu Perfil">
+                        👤
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+
+<!-- ================= PERFIL ================= -->
+
+<section class="perfil-pagina">
+
+    <div class="container">
+
+        <h2>Meu Perfil</h2>
+
+
+        <div class="perfil-container">
+
+
+            <!-- AVATAR -->
+
+            <div class="perfil-avatar">
+                👤
+            </div>
+
+
+            <!-- BOAS-VINDAS -->
+
+            <div class="perfil-boas-vindas">
+
+                <h3 id="mensagemPerfil">
+                    Olá!
+                </h3>
+
+                <p id="subMensagemPerfil">
+                    Seja bem-vindo(a) à Madame Moka.
+                </p>
+
+            </div>
+
+
+
+            <!-- ================= DADOS ================= -->
+
+            <div class="perfil-secao">
+
+                <h3>
+                    Dados da minha conta
+                </h3>
+
+
+                <div class="perfil-dados">
+
+
+                    <div class="perfil-campo">
+
+                        <strong>
+                            Nome
+                        </strong>
+
+                        <span id="nomePerfil"></span>
+
+                    </div>
+
+
+                    <div class="perfil-campo">
+
+                        <strong>
+                            E-mail
+                        </strong>
+
+                        <span id="emailPerfil"></span>
+
+                    </div>
+
+
+                    <div class="perfil-campo">
+
+                        <strong>
+                            Telefone
+                        </strong>
+
+                        <span id="telefonePerfil"></span>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= PEDIDOS ================= -->
+
+            <div class="perfil-pedidos">
+
+
+                <div>
+
+                    <span class="perfil-pedidos-icone">
+                        🛒
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            Meus pedidos
+                        </strong>
+
+                        <p>
+                            Acompanhe seus pedidos realizados.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div id="listaPedidosCliente">
+
+                    <p>
+                        Carregando pedidos...
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ================= SAIR ================= -->
+
+            <button
+                    class="perfil-sair"
+                    onclick="sair(event)">
+
+                Sair da conta
+
+            </button>
+
+
+            <!-- ================= VOLTAR ================= -->
+
+            <a th:href="@{/produtos}"
+               class="perfil-voltar">
+
+                ← Voltar para os produtos
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+
+    // ================= VERIFICAR LOGIN =================
+
+    fetch("/cliente/verificar")
+
+        .then(response => response.text())
+
+        .then(resultado => {
+
+
+            if (resultado === "NAO_LOGADO") {
+
+                document.getElementById("mensagemPerfil").textContent =
+                    "Você não está logado.";
+
+                document.getElementById("subMensagemPerfil").textContent =
+                    "Entre na sua conta para acessar seu perfil.";
+
+                document.querySelector(".perfil-secao").style.display =
+                    "none";
+
+                document.querySelector(".perfil-pedidos").style.display =
+                    "none";
+
+                document.querySelector(".perfil-sair").style.display =
+                    "none";
+
+                return;
+
+            }
+
+
+            // ================= PERFIL =================
+
+            fetch("/cliente/perfil")
+
+                .then(response => response.json())
+
+                .then(cliente => {
+
+                    document.getElementById("nomePerfil").textContent =
+                        cliente.nome;
+
+                    document.getElementById("emailPerfil").textContent =
+                        cliente.email;
+
+                    document.getElementById("telefonePerfil").textContent =
+                        cliente.telefone;
+
+                    document.getElementById("mensagemPerfil").textContent =
+                        "Olá, " + cliente.nome + "!";
+
+                });
+
+
+            // ================= PEDIDOS =================
+
+            carregarPedidosCliente();
+
+        })
+
+
+        .catch(error => {
+
+            console.error(error);
+
+            document.getElementById("mensagemPerfil").textContent =
+                "Não foi possível carregar o perfil.";
+
+            document.getElementById("subMensagemPerfil").textContent =
+                "";
+
+        });
+
+
+
+    /* ========================
+       CARREGAR PEDIDOS
+    ======================== */
+
+    function carregarPedidosCliente() {
+
+        fetch("/cliente/pedidos")
+
+            .then(response => {
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Não foi possível carregar os pedidos."
+                    );
+
+                }
+
+                return response.json();
+
+            })
+
+
+            .then(pedidos => {
+
+
+                const lista =
+                    document.getElementById(
+                        "listaPedidosCliente"
+                    );
+
+
+                lista.innerHTML = "";
+
+
+                // ================= NENHUM PEDIDO =================
+
+                if (pedidos.length === 0) {
+
+                    lista.innerHTML = `
+
+                        <p>
+                            Você ainda não realizou nenhum pedido.
+                        </p>
+
+                    `;
+
+                    return;
+
+                }
+
+
+
+                // ================= PEDIDOS =================
+
+                pedidos.forEach(pedido => {
+
+
+                    let data =
+                        "Data não informada";
+
+
+                    if (pedido.data) {
+
+                        data = new Date(pedido.data)
+                            .toLocaleString("pt-BR");
+
+                    }
+
+
+
+                    let valor =
+                        Number(pedido.valorTotal)
+                            .toFixed(2)
+                            .replace(".", ",");
+
+
+
+                    // ================= PRODUTOS =================
+
+                    let produtosHTML = "";
+
+
+                    if (
+                        pedido.produtos &&
+                        pedido.produtos.length > 0
+                    ) {
+
+
+                        produtosHTML = `
+
+                            <div class="pedido-produtos">
+
+                                <div class="pedido-produtos-titulo">
+
+                                    🛒 <strong>
+                                        Produtos do pedido
+                                    </strong>
+
+                                </div>
+
+                        `;
+
+
+                        pedido.produtos.forEach(produto => {
+
+
+                            let preco =
+                                Number(produto.preco)
+                                    .toFixed(2)
+                                    .replace(".", ",");
+
+
+                            let subtotal =
+                                Number(
+                                    produto.preco *
+                                    produto.quantidade
+                                )
+                                .toFixed(2)
+                                .replace(".", ",");
+
+
+
+                            produtosHTML += `
+
+                                <div class="pedido-produto">
+
+                                    <strong>
+                                        ${produto.nome}
+                                    </strong>
+
+                                    <p>
+                                        Quantidade:
+                                        ${produto.quantidade}
+                                    </p>
+
+                                    <p>
+                                        Preço:
+                                        R$ ${preco}
+                                    </p>
+
+                                    <p>
+                                        Subtotal:
+                                        R$ ${subtotal}
+                                    </p>
+
+                                </div>
+
+                            `;
+
+                        });
+
+
+                        produtosHTML += `
+
+                            </div>
+
+                        `;
+
+                    }
+
+
+
+                    // ================= CARD DO PEDIDO =================
+
+                    const item =
+                        document.createElement("div");
+
+
+                    item.className =
+                        "pedido-cliente";
+
+
+                    item.innerHTML = `
+
+                        <div class="pedido-cliente-cabecalho">
+
+                            <p>
+                                <strong>
+                                    Pedido #${pedido.id}
+                                </strong>
+                            </p>
+
+                            <p>
+                                Data:
+                                ${data}
+                            </p>
+
+                            <span class="pedido-cliente-status">
+                                ${pedido.status}
+                            </span>
+
+                        </div>
+
+
+                        ${produtosHTML}
+
+
+                        <div class="pedido-cliente-total">
+
+                            Total do pedido:
+
+                            <strong>
+                                R$ ${valor}
+                            </strong>
+
+                        </div>
+
+                    `;
+
+
+                    lista.appendChild(item);
+
+                });
+
+            })
+
+
+            .catch(error => {
+
+                console.error(
+                    "Erro ao carregar pedidos:",
+                    error
+                );
+
+
+                document.getElementById(
+                    "listaPedidosCliente"
+                ).innerHTML = `
+
+                    <p>
+                        Não foi possível carregar seus pedidos.
+                    </p>
+
+                `;
+
+            });
+
+    }
+
+
+
+    /* ========================
+       SAIR DA CONTA
+    ======================== */
+
+    function sair(event) {
+
+        event.preventDefault();
+
+
+        fetch("/cliente/sair", {
+
+            method: "POST"
+
+        })
+
+
+        .then(response => response.text())
+
+
+        .then(resultado => {
+
+
+            if (resultado === "LOGOUT_OK") {
+
+                alert(
+                    "Você saiu da sua conta."
+                );
+
+                window.location.href =
+                    "/produtos";
+
+            }
+
+        })
+
+
+        .catch(error => {
+
+            console.error(error);
+
+            alert(
+                "Erro ao sair da conta."
+            );
+
+        });
+
+    }
+
+
+</script>
+
+
+</body>
+
+</html>
