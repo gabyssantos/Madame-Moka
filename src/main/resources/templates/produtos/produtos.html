@@ -1,851 +1,442 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Madame Moka - Produtos</title>
-
     <link rel="stylesheet" th:href="@{/css/style.css}">
-
 </head>
-
 
 <body>
 
-
 <!-- ================= HEADER ================= -->
-
 <header class="header">
-
     <nav class="navbar">
-
         <div class="container">
 
-            <!-- LOGO -->
             <div class="logo">
-
                 <a th:href="@{/}">
-
-                    <img th:src="@{/img/logo.png}"
-                         alt="Madame Moka">
-
+                    <img th:src="@{/img/logo.png}" alt="Madame Moka">
                 </a>
-
             </div>
 
-
-            <!-- MENU -->
             <ul class="nav-menu">
-
-                <li>
-                    <a th:href="@{/}">
-                        Home
-                    </a>
-                </li>
-
-                <li>
-                    <a th:href="@{/produtos}">
-                        Produtos
-                    </a>
-                </li>
-
+                <li><a th:href="@{/}">Home</a></li>
+                <li><a th:href="@{/produtos}">Produtos</a></li>
                 <li>
                     <a th:href="@{/pedidos}">
                         🛒 Carrinho
                         <span id="quantidadeCarrinho">0</span>
                     </a>
                 </li>
-
                 <li>
-                    <a th:href="@{/perfil}" title="Meu Perfil">
-                        👤
-                    </a>
+                    <a th:href="@{/perfil}" title="Meu Perfil">👤</a>
                 </li>
-
             </ul>
+
         </div>
-
     </nav>
-
 </header>
 
-
-
 <!-- ================= BEBIDAS QUENTES ================= -->
-
 <section id="bebidas-quentes" class="menu">
-
     <div class="container">
-
         <h2>Bebidas Quentes</h2>
 
         <div class="menu-grid">
 
-
             <div class="menu-item">
-
-                <img th:src="@{/img/cappuccino.jpg}"
-                     alt="Cappuccino">
-
+                <img th:src="@{/img/cappuccino.jpg}" alt="Cappuccino">
                 <h3>Cappuccino</h3>
-
-                <p>
-                    Café espresso cremoso com leite vaporizado
-                    e uma delicada camada de espuma.
-                </p>
-
-                <span class="price">
-                    R$ 12,00
-                </span>
-
-                <button class="btn-carrinho"
-                        onclick="adicionarCarrinho('Cappuccino', 12.00)">
+                <p>Café espresso cremoso com leite vaporizado e uma delicada camada de espuma.</p>
+                <span class="price">R$ 12,00</span>
+                <button class="btn-carrinho" onclick="adicionarCarrinho('Cappuccino', 12.00)">
                     Adicionar ao carrinho
                 </button>
-
             </div>
 
-
             <div class="menu-item">
-
-                <img th:src="@{/img/cha.jpg}"
-                     alt="Chás variados">
-
+                <img th:src="@{/img/cha.jpg}" alt="Chás variados">
                 <h3>Chás variados</h3>
-
-                <p>
-                    Seleção de chás quentes com diferentes sabores
-                    e aromas para todos os gostos.
-                </p>
-
-                <span class="price">
-                    R$ 8,00
-                </span>
-
-                <button class="btn-carrinho"
-                        onclick="adicionarCarrinho('Chás variados', 8.00)">
+                <p>Seleção de chás quentes com diferentes sabores e aromas para todos os gostos.</p>
+                <span class="price">R$ 8,00</span>
+                <button class="btn-carrinho" onclick="adicionarCarrinho('Chás variados', 8.00)">
                     Adicionar ao carrinho
                 </button>
-
             </div>
-
 
             <div class="menu-item">
-
-                <img th:src="@{/img/mocaccino.jpg}"
-                     alt="Mocaccino">
-
+                <img th:src="@{/img/mocaccino.jpg}" alt="Mocaccino">
                 <h3>Mocaccino</h3>
-
-                <p>
-                    Café espresso combinado com leite vaporizado
-                    e um toque irresistível de chocolate.
-                </p>
-
-                <span class="price">
-                    R$ 13,00
-                </span>
-
-                <button class="btn-carrinho"
-                        onclick="adicionarCarrinho('Mocaccino', 13.00)">
+                <p>Café espresso combinado com leite vaporizado e um toque irresistível de chocolate.</p>
+                <span class="price">R$ 13,00</span>
+                <button class="btn-carrinho" onclick="adicionarCarrinho('Mocaccino', 13.00)">
                     Adicionar ao carrinho
                 </button>
-
             </div>
-
 
         </div>
-
     </div>
-
 </section>
 
-
-
 <!-- ================= BEBIDAS GELADAS ================= -->
-
 <section id="bebidas-geladas" class="menu">
-
     <div class="container">
-
         <h2>Bebidas Geladas</h2>
 
         <div class="menu-grid">
 
-
             <div class="menu-item">
-
-                <img th:src="@{/img/cafegelado.jpg}"
-                     alt="Café gelado">
-
+                <img th:src="@{/img/cafegelado.jpg}" alt="Café gelado">
                 <h3>Café gelado (Iced Coffee)</h3>
-
-                <p>
-                    Café espresso servido gelado, refrescante
-                    e perfeito para os dias quentes.
-                </p>
-
-                <span class="price">
-                    R$ 10,00
-                </span>
-
-                <button class="btn-carrinho"
-                        onclick="adicionarCarrinho('Café gelado (Iced Coffee)', 10.00)">
+                <p>Café espresso servido gelado, refrescante e perfeito para os dias quentes.</p>
+                <span class="price">R$ 10,00</span>
+                <button class="btn-carrinho" onclick="adicionarCarrinho('Café gelado (Iced Coffee)', 10.00)">
                     Adicionar ao carrinho
                 </button>
-
             </div>
 
-
             <div class="menu-item">
-
-                <img th:src="@{/img/Frappé.jpg}"
-                     alt="Frappé">
-
+                <img th:src="@{/img/Frappé.jpg}" alt="Frappé">
                 <h3>Frappé</h3>
-
-                <p>
-                    Bebida cremosa e gelada à base de café,
-                    leite e gelo, finalizada com muito sabor.
-                </p>
-
-                <span class="price">
-                    R$ 14,00
-                </span>
-
-                <button class="btn-carrinho"
-                        onclick="adicionarCarrinho('Frappé', 14.00)">
+                <p>Bebida cremosa e gelada à base de café, leite e gelo, finalizada com muito sabor.</p>
+                <span class="price">R$ 14,00</span>
+                <button class="btn-carrinho" onclick="adicionarCarrinho('Frappé', 14.00)">
                     Adicionar ao carrinho
                 </button>
-
             </div>
-
 
             <div class="menu-item">
-
-                <img th:src="@{/img/Smoothies.jpg}"
-                     alt="Smoothies">
-
+                <img th:src="@{/img/Smoothies.jpg}" alt="Smoothies">
                 <h3>Smoothies</h3>
-
-                <p>
-                    Bebida cremosa e refrescante preparada
-                    com frutas selecionadas.
-                </p>
-
-                <span class="price">
-                    R$ 15,00
-                </span>
-
-                <button class="btn-carrinho"
-                        onclick="adicionarCarrinho('Smoothies', 15.00)">
+                <p>Bebida cremosa e refrescante preparada com frutas selecionadas.</p>
+                <span class="price">R$ 15,00</span>
+                <button class="btn-carrinho" onclick="adicionarCarrinho('Smoothies', 15.00)">
                     Adicionar ao carrinho
                 </button>
-
             </div>
-
 
         </div>
-
     </div>
-
 </section>
 
-
-
 <!-- ================= PADARIA E CONFEITARIA ================= -->
-
 <section id="padaria-confeitaria" class="menu">
-
     <div class="container">
-
         <h2>Padaria e Confeitaria</h2>
 
         <div class="menu-grid">
 
-
             <div class="menu-item">
-
-                <img th:src="@{/img/Croissant.jpg}"
-                     alt="Croissant">
-
+                <img th:src="@{/img/Croissant.jpg}" alt="Croissant">
                 <h3>Croissant</h3>
-
-                <p>
-                    Massa folhada leve e crocante, preparada
-                    para acompanhar perfeitamente seu café.
-                </p>
-
-                <span class="price">
-                    R$ 9,00
-                </span>
-
-                <button class="btn-carrinho"
-                        onclick="adicionarCarrinho('Croissant', 9.00)">
+                <p>Massa folhada leve e crocante, preparada para acompanhar perfeitamente seu café.</p>
+                <span class="price">R$ 9,00</span>
+                <button class="btn-carrinho" onclick="adicionarCarrinho('Croissant', 9.00)">
                     Adicionar ao carrinho
                 </button>
-
             </div>
 
-
             <div class="menu-item">
-
-                <img th:src="@{/img/cookies.jpg}"
-                     alt="Cookies">
-
+                <img th:src="@{/img/cookies.jpg}" alt="Cookies">
                 <h3>Cookies</h3>
-
-                <p>
-                    Cookies artesanais crocantes por fora
-                    e macios por dentro, com gotas de chocolate.
-                </p>
-
-                <span class="price">
-                    R$ 8,00
-                </span>
-
-                <button class="btn-carrinho"
-                        onclick="adicionarCarrinho('Cookies', 8.00)">
+                <p>Cookies artesanais crocantes por fora e macios por dentro, com gotas de chocolate.</p>
+                <span class="price">R$ 8,00</span>
+                <button class="btn-carrinho" onclick="adicionarCarrinho('Cookies', 8.00)">
                     Adicionar ao carrinho
                 </button>
-
             </div>
-
 
             <div class="menu-item">
-
-                <img th:src="@{/img/bolo.jpg}"
-                     alt="Bolo de chocolate">
-
+                <img th:src="@{/img/bolo.jpg}" alt="Bolo de chocolate">
                 <h3>Bolo de chocolate</h3>
-
-                <p>
-                    Fatia de bolo de chocolate macio e saboroso,
-                    perfeita para acompanhar um café.
-                </p>
-
-                <span class="price">
-                    R$ 10,00
-                </span>
-
-                <button class="btn-carrinho"
-                        onclick="adicionarCarrinho('Bolo de chocolate', 10.00)">
+                <p>Fatia de bolo de chocolate macio e saboroso, perfeita para acompanhar um café.</p>
+                <span class="price">R$ 10,00</span>
+                <button class="btn-carrinho" onclick="adicionarCarrinho('Bolo de chocolate', 10.00)">
                     Adicionar ao carrinho
                 </button>
-
             </div>
-
 
         </div>
-
     </div>
-
 </section>
 
-
-
 <!-- ================= LANCHES SALGADOS ================= -->
-
 <section id="lanches-salgados" class="menu">
-
     <div class="container">
-
         <h2>Lanches Salgados</h2>
 
         <div class="menu-grid">
 
-
             <div class="menu-item">
-
-                <img th:src="@{/img/Sanduíches.jpg}"
-                     alt="Sanduíches naturais">
-
+                <img th:src="@{/img/Sanduíches.jpg}" alt="Sanduíches naturais">
                 <h3>Sanduíches naturais</h3>
-
-                <p>
-                    Pão macio recheado com ingredientes frescos
-                    e uma combinação leve e saborosa.
-                </p>
-
-                <span class="price">
-                    R$ 12,00
-                </span>
-
-                <button class="btn-carrinho"
-                        onclick="adicionarCarrinho('Sanduíches naturais', 12.00)">
+                <p>Pão macio recheado com ingredientes frescos e uma combinação leve e saborosa.</p>
+                <span class="price">R$ 12,00</span>
+                <button class="btn-carrinho" onclick="adicionarCarrinho('Sanduíches naturais', 12.00)">
                     Adicionar ao carrinho
                 </button>
-
             </div>
 
-
             <div class="menu-item">
-
-                <img th:src="@{/img/Empadas.jpg}"
-                     alt="Empadas">
-
+                <img th:src="@{/img/Empadas.jpg}" alt="Empadas">
                 <h3>Empadas</h3>
-
-                <p>
-                    Massa delicada e crocante com recheio
-                    cremoso e saboroso.
-                </p>
-
-                <span class="price">
-                    R$ 9,00
-                </span>
-
-                <button class="btn-carrinho"
-                        onclick="adicionarCarrinho('Empadas', 9.00)">
+                <p>Massa delicada e crocante com recheio cremoso e saboroso.</p>
+                <span class="price">R$ 9,00</span>
+                <button class="btn-carrinho" onclick="adicionarCarrinho('Empadas', 9.00)">
                     Adicionar ao carrinho
                 </button>
-
             </div>
-
 
             <div class="menu-item">
-
-                <img th:src="@{/img/Salgados.jpg}"
-                     alt="Salgados assados">
-
+                <img th:src="@{/img/Salgados.jpg}" alt="Salgados assados">
                 <h3>Salgados assados</h3>
-
-                <p>
-                    Salgados preparados com massa leve e assados
-                    até ficarem dourados e saborosos.
-                </p>
-
-                <span class="price">
-                    R$ 10,00
-                </span>
-
-                <button class="btn-carrinho"
-                        onclick="adicionarCarrinho('Salgados assados', 10.00)">
+                <p>Salgados preparados com massa leve e assados até ficarem dourados e saborosos.</p>
+                <span class="price">R$ 10,00</span>
+                <button class="btn-carrinho" onclick="adicionarCarrinho('Salgados assados', 10.00)">
                     Adicionar ao carrinho
                 </button>
-
             </div>
-
 
         </div>
-
     </div>
-
 </section>
 
-
-
 <!-- ================= SOBREMESAS ================= -->
-
 <section id="sobremesas" class="menu">
-
     <div class="container">
-
         <h2>Sobremesas</h2>
 
         <div class="menu-grid">
 
-
             <div class="menu-item">
-
-                <img th:src="@{/img/Brigadeiro.jpg}"
-                     alt="Brigadeiro gourmet">
-
+                <img th:src="@{/img/Brigadeiro.jpg}" alt="Brigadeiro gourmet">
                 <h3>Brigadeiro gourmet</h3>
-
-                <p>
-                    Brigadeiro cremoso preparado com chocolate
-                    de qualidade e finalização especial.
-                </p>
-
-                <span class="price">
-                    R$ 5,00
-                </span>
-
-                <button class="btn-carrinho"
-                        onclick="adicionarCarrinho('Brigadeiro gourmet', 5.00)">
+                <p>Brigadeiro cremoso preparado com chocolate de qualidade e finalização especial.</p>
+                <span class="price">R$ 5,00</span>
+                <button class="btn-carrinho" onclick="adicionarCarrinho('Brigadeiro gourmet', 5.00)">
                     Adicionar ao carrinho
                 </button>
-
             </div>
 
-
             <div class="menu-item">
-
-                <img th:src="@{/img/petit.jpg}"
-                     alt="Petit gâteau">
-
+                <img th:src="@{/img/petit.jpg}" alt="Petit gâteau">
                 <h3>Petit gâteau</h3>
-
-                <p>
-                    Bolinho de chocolate quentinho com recheio
-                    cremoso e irresistível.
-                </p>
-
-                <span class="price">
-                    R$ 14,00
-                </span>
-
-                <button class="btn-carrinho"
-                        onclick="adicionarCarrinho('Petit gâteau', 14.00)">
+                <p>Bolinho de chocolate quentinho com recheio cremoso e irresistível.</p>
+                <span class="price">R$ 14,00</span>
+                <button class="btn-carrinho" onclick="adicionarCarrinho('Petit gâteau', 14.00)">
                     Adicionar ao carrinho
                 </button>
-
             </div>
-
 
             <div class="menu-item">
-
-                <img th:src="@{/img/Tortas.jpg}"
-                     alt="Tortas especiais">
-
+                <img th:src="@{/img/Tortas.jpg}" alt="Tortas especiais">
                 <h3>Tortas especiais</h3>
-
-                <p>
-                    Fatias de tortas artesanais com sabores variados
-                    e ingredientes selecionados.
-                </p>
-
-                <span class="price">
-                    R$ 13,00
-                </span>
-
-                <button class="btn-carrinho"
-                        onclick="adicionarCarrinho('Tortas especiais', 13.00)">
+                <p>Fatias de tortas artesanais com sabores variados e ingredientes selecionados.</p>
+                <span class="price">R$ 13,00</span>
+                <button class="btn-carrinho" onclick="adicionarCarrinho('Tortas especiais', 13.00)">
                     Adicionar ao carrinho
                 </button>
-
             </div>
-
 
         </div>
-
     </div>
-
 </section>
 
-
-
 <!-- ================= OPÇÕES SAUDÁVEIS ================= -->
-
 <section id="opcoes-saudaveis" class="menu">
-
     <div class="container">
-
         <h2>Opções Saudáveis</h2>
 
         <div class="menu-grid">
 
-
             <div class="menu-item">
-
-                <img th:src="@{/img/salada.jpg}"
-                     alt="Salada de frutas">
-
+                <img th:src="@{/img/salada.jpg}" alt="Salada de frutas">
                 <h3>Salada de frutas</h3>
-
-                <p>
-                    Mix refrescante de frutas frescas e selecionadas,
-                    preparado diariamente.
-                </p>
-
-                <span class="price">
-                    R$ 10,00
-                </span>
-
-                <button class="btn-carrinho"
-                        onclick="adicionarCarrinho('Salada de frutas', 10.00)">
+                <p>Mix refrescante de frutas frescas e selecionadas, preparado diariamente.</p>
+                <span class="price">R$ 10,00</span>
+                <button class="btn-carrinho" onclick="adicionarCarrinho('Salada de frutas', 10.00)">
                     Adicionar ao carrinho
                 </button>
-
             </div>
 
-
             <div class="menu-item">
-
-                <img th:src="@{/img/Sandu.jpg}"
-                     alt="Sanduíches integrais">
-
+                <img th:src="@{/img/Sandu.jpg}" alt="Sanduíches integrais">
                 <h3>Sanduíches integrais</h3>
-
-                <p>
-                    Sanduíche preparado com pão integral
-                    e ingredientes frescos e leves.
-                </p>
-
-                <span class="price">
-                    R$ 13,00
-                </span>
-
-                <button class="btn-carrinho"
-                        onclick="adicionarCarrinho('Sanduíches integrais', 13.00)">
+                <p>Sanduíche preparado com pão integral e ingredientes frescos e leves.</p>
+                <span class="price">R$ 13,00</span>
+                <button class="btn-carrinho" onclick="adicionarCarrinho('Sanduíches integrais', 13.00)">
                     Adicionar ao carrinho
                 </button>
-
             </div>
-
 
             <div class="menu-item">
-
-                <img th:src="@{/img/Tapioca.jpg}"
-                     alt="Tapioca">
-
+                <img th:src="@{/img/Tapioca.jpg}" alt="Tapioca">
                 <h3>Tapioca</h3>
-
-                <p>
-                    Tapioca preparada na hora com recheios
-                    saborosos e opções leves.
-                </p>
-
-                <span class="price">
-                    R$ 11,00
-                </span>
-
-                <button class="btn-carrinho"
-                        onclick="adicionarCarrinho('Tapioca', 11.00)">
+                <p>Tapioca preparada na hora com recheios saborosos e opções leves.</p>
+                <span class="price">R$ 11,00</span>
+                <button class="btn-carrinho" onclick="adicionarCarrinho('Tapioca', 11.00)">
                     Adicionar ao carrinho
                 </button>
-
             </div>
-
 
         </div>
-
     </div>
-
 </section>
 
-
-
 <!-- ================= PRODUTOS PARA VENDA ================= -->
-
 <section id="produtos-venda" class="menu">
-
     <div class="container">
-
         <h2>Produtos para Venda</h2>
 
         <div class="menu-grid">
 
-
             <div class="menu-item">
-
-                <img th:src="@{/img/Grãos.jpg}"
-                     alt="Grãos de café especiais">
-
+                <img th:src="@{/img/Grãos.jpg}" alt="Grãos de café especiais">
                 <h3>Grãos de café especiais</h3>
-
-                <p>
-                    Grãos selecionados para você preparar
-                    um café especial no conforto de casa.
-                </p>
-
-                <span class="price">
-                    R$ 25,00
-                </span>
-
-                <button class="btn-carrinho"
-                        onclick="adicionarCarrinho('Grãos de café especiais', 25.00)">
+                <p>Grãos selecionados para você preparar um café especial no conforto de casa.</p>
+                <span class="price">R$ 25,00</span>
+                <button class="btn-carrinho" onclick="adicionarCarrinho('Grãos de café especiais', 25.00)">
                     Adicionar ao carrinho
                 </button>
-
             </div>
 
-
             <div class="menu-item">
-
-                <img th:src="@{/img/Canecas.jpg}"
-                     alt="Canecas personalizadas">
-
+                <img th:src="@{/img/Canecas.jpg}" alt="Canecas personalizadas">
                 <h3>Canecas personalizadas</h3>
-
-                <p>
-                    Canecas exclusivas da Madame Moka para deixar
-                    seus momentos de café ainda mais especiais.
-                </p>
-
-                <span class="price">
-                    R$ 35,00
-                </span>
-
-                <button class="btn-carrinho"
-                        onclick="adicionarCarrinho('Canecas personalizadas', 35.00)">
+                <p>Canecas exclusivas da Madame Moka para deixar seus momentos de café ainda mais especiais.</p>
+                <span class="price">R$ 35,00</span>
+                <button class="btn-carrinho" onclick="adicionarCarrinho('Canecas personalizadas', 35.00)">
                     Adicionar ao carrinho
                 </button>
-
             </div>
-
 
             <div class="menu-item">
-
-                <img th:src="@{/img/capsula.png}"
-                     alt="Cápsulas de café">
-
+                <img th:src="@{/img/capsula.png}" alt="Cápsulas de café">
                 <h3>Cápsulas de café</h3>
-
-                <p>
-                    Cápsulas práticas com diferentes intensidades
-                    e sabores para preparar seu café favorito.
-                </p>
-
-                <span class="price">
-                    R$ 30,00
-                </span>
-
-                <button class="btn-carrinho"
-                        onclick="adicionarCarrinho('Cápsulas de café', 30.00)">
+                <p>Cápsulas práticas com diferentes intensidades e sabores para preparar seu café favorito.</p>
+                <span class="price">R$ 30,00</span>
+                <button class="btn-carrinho" onclick="adicionarCarrinho('Cápsulas de café', 30.00)">
                     Adicionar ao carrinho
                 </button>
-
             </div>
-
 
         </div>
-
     </div>
-
 </section>
 
 <!-- ================= MODAL DE CADASTRO ================= -->
-
 <div id="modalCadastro" class="modal-cadastro">
-
     <div class="modal-conteudo">
 
-        <span class="fechar-modal" onclick="fecharCadastro()">
-            &times;
-        </span>
+        <span class="fechar-modal" onclick="fecharCadastro()">&times;</span>
 
         <h2>Crie sua conta</h2>
-
-        <p>
-            Para adicionar produtos ao carrinho, faça seu cadastro.
-        </p>
+        <p>Para adicionar produtos ao carrinho, faça seu cadastro.</p>
 
         <form id="formCadastro">
+            <input type="text" id="nomeCadastro" placeholder="Nome completo" required>
+            <input type="email" id="emailCadastro" placeholder="E-mail" required>
+            <input type="tel" id="telefoneCadastro" placeholder="Telefone" required>
+            <input type="password" id="senhaCadastro" placeholder="Senha" required>
 
-            <input
-                    type="text"
-                    id="nomeCadastro"
-                    placeholder="Nome completo"
-                    required>
-
-            <input
-                    type="email"
-                    id="emailCadastro"
-                    placeholder="E-mail"
-                    required>
-
-            <input
-                    type="tel"
-                    id="telefoneCadastro"
-                    placeholder="Telefone"
-                    required>
-
-            <input
-                    type="password"
-                    id="senhaCadastro"
-                    placeholder="Senha"
-                    required>
-
-            <button type="submit" class="btn-carrinho">
-                Cadastrar
-            </button>
-
+            <button type="submit" class="btn-carrinho">Cadastrar</button>
         </form>
 
     </div>
-
 </div>
 
 <!-- ================= MODAL DE LOGIN ================= -->
-
 <div id="modalLogin" class="modal-cadastro">
-
     <div class="modal-conteudo">
 
-        <span class="fechar-modal" onclick="fecharLogin()">
-            &times;
-        </span>
+        <span class="fechar-modal" onclick="fecharLogin()">&times;</span>
 
         <h2>Entrar na sua conta</h2>
-
-        <p>
-            Entre para adicionar produtos ao carrinho.
-        </p>
+        <p>Entre para adicionar produtos ao carrinho.</p>
 
         <form id="formLogin">
+            <input type="email" id="emailLogin" placeholder="E-mail" required>
+            <input type="password" id="senhaLogin" placeholder="Senha" required>
 
-            <input
-                    type="email"
-                    id="emailLogin"
-                    placeholder="E-mail"
-                    required>
-
-            <input
-                    type="password"
-                    id="senhaLogin"
-                    placeholder="Senha"
-                    required>
-
-            <button type="submit" class="btn-carrinho">
-                Entrar
-            </button>
-
+            <button type="submit" class="btn-carrinho">Entrar</button>
         </form>
 
-        <p style="margin-top: 20px;">
-            Ainda não tem uma conta?
-        </p>
+        <p style="margin-top: 20px;">Ainda não tem uma conta?</p>
 
-        <button
-                type="button"
-                class="btn-carrinho"
-                onclick="abrirCadastroPeloLogin()">
-
+        <button type="button" class="btn-carrinho" onclick="abrirCadastroPeloLogin()">
             Criar minha conta
-
         </button>
 
     </div>
-
 </div>
 
-
+<!-- ================= MENSAGEM DO CARRINHO ================= -->
+<div id="mensagemCarrinho" class="mensagem-carrinho" role="status" aria-live="polite">
+    <span class="mensagem-icone">✓</span>
+    <div>
+        <strong>Produto adicionado!</strong>
+        <p>Seu pedido foi adicionado ao carrinho.</p>
+    </div>
+</div>
 
 <script>
+    // ================= MENSAGEM DO CARRINHO =================
+
+    let temporizadorMensagem;
+
+    function mostrarMensagemCarrinho() {
+        const mensagem = document.getElementById("mensagemCarrinho");
+
+        if (!mensagem) {
+            return;
+        }
+
+        mensagem.classList.remove("visivel");
+
+        // Reinicia o tempo se adicionar outro produto rapidamente.
+        clearTimeout(temporizadorMensagem);
+
+        // Permite reiniciar a animação quando a mensagem já está aparecendo.
+        void mensagem.offsetWidth;
+
+        mensagem.classList.add("visivel");
+
+        temporizadorMensagem = setTimeout(function () {
+            mensagem.classList.remove("visivel");
+        }, 3000);
+    }
+
+    // ================= ATUALIZAR QUANTIDADE =================
 
     function atualizarQuantidadeCarrinho() {
-
         let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
-
         let quantidade = 0;
 
-        carrinho.forEach(produto => {
-            quantidade += produto.quantidade;
+        carrinho.forEach(function (produto) {
+            quantidade += Number(produto.quantidade) || 0;
         });
 
         document.getElementById("quantidadeCarrinho").textContent = quantidade;
     }
 
-
     // ================= ADICIONAR AO CARRINHO =================
 
     function adicionarCarrinho(nome, preco) {
-
-        // Verifica se existe uma sessão de login
         fetch("/cliente/verificar")
-            .then(response => response.text())
-            .then(resultado => {
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error("Não foi possível verificar o login.");
+                }
 
-                // Se não estiver logado
+                return response.text();
+            })
+            .then(function (resultado) {
+                resultado = resultado.trim();
+
                 if (resultado === "NAO_LOGADO") {
-
-                    // Guarda o produto que a pessoa tentou adicionar
                     localStorage.setItem(
                         "produtoPendente",
                         JSON.stringify({
@@ -854,322 +445,206 @@
                         })
                     );
 
-                    // Abre o modal de login
                     document.getElementById("modalLogin").style.display = "flex";
-
                     return;
                 }
 
-                // Se estiver logado
+                // Só adiciona se a verificação indicar que o cliente está logado.
                 adicionarProdutoCarrinho(nome, preco);
-
             })
-            .catch(error => {
-
+            .catch(function (error) {
                 console.error(error);
-
                 alert("Erro ao verificar o login.");
-
             });
     }
-
 
     // ================= ADICIONAR PRODUTO =================
 
     function adicionarProdutoCarrinho(nome, preco) {
+        let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
 
-        let carrinho =
-            JSON.parse(localStorage.getItem("carrinho")) || [];
-
-        let produtoExistente =
-            carrinho.find(produto => produto.nome === nome);
-
+        let produtoExistente = carrinho.find(function (produto) {
+            return produto.nome === nome;
+        });
 
         if (produtoExistente) {
-
-            produtoExistente.quantidade++;
-
+            produtoExistente.quantidade =
+                (Number(produtoExistente.quantidade) || 0) + 1;
         } else {
-
             carrinho.push({
                 nome: nome,
                 preco: preco,
                 quantidade: 1
             });
-
         }
 
-
-        localStorage.setItem(
-            "carrinho",
-            JSON.stringify(carrinho)
-        );
-
+        localStorage.setItem("carrinho", JSON.stringify(carrinho));
 
         atualizarQuantidadeCarrinho();
 
-
-        // alert(nome + " foi adicionado ao carrinho!");
+        // Mostra a mensagem após adicionar o produto.
+        mostrarMensagemCarrinho();
     }
-
 
     // ================= FECHAR CADASTRO =================
 
     function fecharCadastro() {
-
         document.getElementById("modalCadastro").style.display = "none";
     }
-
 
     // ================= FECHAR LOGIN =================
 
     function fecharLogin() {
-
         document.getElementById("modalLogin").style.display = "none";
     }
-
 
     // ================= ABRIR CADASTRO PELO LOGIN =================
 
     function abrirCadastroPeloLogin() {
-
         fecharLogin();
-
         document.getElementById("modalCadastro").style.display = "flex";
     }
 
-
     // ================= CADASTRO =================
 
-    document.getElementById("formCadastro").addEventListener(
-        "submit",
-        function(event) {
+    document.getElementById("formCadastro").addEventListener("submit", function (event) {
+        event.preventDefault();
 
-            event.preventDefault();
+        let cliente = {
+            nome: document.getElementById("nomeCadastro").value,
+            email: document.getElementById("emailCadastro").value,
+            telefone: document.getElementById("telefoneCadastro").value,
+            senha: document.getElementById("senhaCadastro").value
+        };
 
+        fetch("/cliente/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(cliente)
+        })
+        .then(function (response) {
+            return response.text();
+        })
+        .then(function (resultado) {
+            resultado = resultado.trim();
 
-            let cliente = {
+            if (resultado === "EMAIL_EXISTENTE") {
+                alert("Este e-mail já está cadastrado!");
+                return;
+            }
 
-                nome: document.getElementById("nomeCadastro").value,
+            if (resultado === "CADASTRO_OK") {
+                fecharCadastro();
+                document.getElementById("formCadastro").reset();
 
-                email: document.getElementById("emailCadastro").value,
+                let produtoPendente = JSON.parse(
+                    localStorage.getItem("produtoPendente")
+                );
 
-                telefone: document.getElementById("telefoneCadastro").value,
+                if (produtoPendente) {
+                    adicionarProdutoCarrinho(
+                        produtoPendente.nome,
+                        produtoPendente.preco
+                    );
 
-                senha: document.getElementById("senhaCadastro").value
-
-            };
-
-
-            fetch("/cliente/cadastrar", {
-
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify(cliente)
-
-            })
-
-            .then(response => response.text())
-
-            .then(resultado => {
-
-
-                if (resultado === "EMAIL_EXISTENTE") {
-
-                    alert("Este e-mail já está cadastrado!");
-
-                    return;
+                    localStorage.removeItem("produtoPendente");
                 }
-
-
-                if (resultado === "CADASTRO_OK") {
-
-                    // Fecha o modal
-                    fecharCadastro();
-
-
-                    // Limpa o formulário
-                    document.getElementById("formCadastro").reset();
-
-
-                    // Recupera o produto que a pessoa tentou adicionar
-                    let produtoPendente =
-                        JSON.parse(
-                            localStorage.getItem("produtoPendente")
-                        );
-
-
-                    if (produtoPendente) {
-
-                        adicionarProdutoCarrinho(
-                            produtoPendente.nome,
-                            produtoPendente.preco
-                        );
-
-
-                        // Remove o produto pendente
-                        localStorage.removeItem(
-                            "produtoPendente"
-                        );
-                    }
-
-                }
-
-            })
-
-            .catch(error => {
-
-                console.error(error);
-
-                alert("Erro ao realizar o cadastro.");
-
-            });
-
-        }
-    );
-
+            }
+        })
+        .catch(function (error) {
+            console.error(error);
+            alert("Erro ao realizar o cadastro.");
+        });
+    });
 
     // ================= LOGIN =================
 
-    document.getElementById("formLogin").addEventListener(
-        "submit",
-        function(event) {
+    document.getElementById("formLogin").addEventListener("submit", function (event) {
+        event.preventDefault();
 
-            event.preventDefault();
+        let cliente = {
+            email: document.getElementById("emailLogin").value,
+            senha: document.getElementById("senhaLogin").value
+        };
 
+        fetch("/cliente/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(cliente)
+        })
+        .then(function (response) {
+            return response.text();
+        })
+        .then(function (resultado) {
+            resultado = resultado.trim();
 
-            let cliente = {
+            if (resultado === "NAO_CADASTRADO") {
+                alert("Este e-mail não está cadastrado.");
+                return;
+            }
 
-                email: document.getElementById("emailLogin").value,
+            if (resultado === "SENHA_INCORRETA") {
+                alert("Senha incorreta.");
+                return;
+            }
 
-                senha: document.getElementById("senhaLogin").value
+            if (resultado === "LOGIN_OK") {
+                fecharLogin();
+                document.getElementById("formLogin").reset();
 
-            };
+                let produtoPendente = JSON.parse(
+                    localStorage.getItem("produtoPendente")
+                );
 
+                if (produtoPendente) {
+                    adicionarProdutoCarrinho(
+                        produtoPendente.nome,
+                        produtoPendente.preco
+                    );
 
-            fetch("/cliente/login", {
-
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify(cliente)
-
-            })
-
-            .then(response => response.text())
-
-            .then(resultado => {
-
-
-                if (resultado === "NAO_CADASTRADO") {
-
-                    alert("Este e-mail não está cadastrado.");
-
-                    return;
+                    localStorage.removeItem("produtoPendente");
                 }
-
-
-                if (resultado === "SENHA_INCORRETA") {
-
-                    alert("Senha incorreta.");
-
-                    return;
-                }
-
-
-                if (resultado === "LOGIN_OK") {
-
-                    // Fecha o modal
-                    fecharLogin();
-
-
-                    // Limpa o formulário
-                    document.getElementById("formLogin").reset();
-
-
-                    // Recupera o produto que a pessoa tentou adicionar
-                    let produtoPendente =
-                        JSON.parse(
-                            localStorage.getItem("produtoPendente")
-                        );
-
-
-                    if (produtoPendente) {
-
-                        adicionarProdutoCarrinho(
-                            produtoPendente.nome,
-                            produtoPendente.preco
-                        );
-
-
-                        // Remove o produto pendente
-                        localStorage.removeItem(
-                            "produtoPendente"
-                        );
-                    }
-
-                }
-
-            })
-
-            .catch(error => {
-
-                console.error(error);
-
-                alert("Erro ao realizar o login.");
-
-            });
-
-        }
-    );
-
-// ================= SAIR DA CONTA =================
-
-function sair(event) {
-
-    event.preventDefault();
-
-    fetch("/cliente/sair", {
-
-        method: "POST"
-
-    })
-
-    .then(response => response.text())
-
-    .then(resultado => {
-
-        if (resultado === "LOGOUT_OK") {
-
-            alert("Você saiu da sua conta.");
-
-            window.location.href = "/produtos";
-        }
-
-    })
-
-    .catch(error => {
-
-        console.error(error);
-
-        alert("Erro ao sair da conta.");
-
+            }
+        })
+        .catch(function (error) {
+            console.error(error);
+            alert("Erro ao realizar o login.");
+        });
     });
-}
 
-    // ================= ATUALIZAR CARRINHO =================
+    // ================= SAIR DA CONTA =================
+
+    function sair(event) {
+        if (event) {
+            event.preventDefault();
+        }
+
+        fetch("/cliente/sair", {
+            method: "POST"
+        })
+        .then(function (response) {
+            return response.text();
+        })
+        .then(function (resultado) {
+            if (resultado.trim() === "LOGOUT_OK") {
+                alert("Você saiu da sua conta.");
+                window.location.href = "/produtos";
+            }
+        })
+        .catch(function (error) {
+            console.error(error);
+            alert("Erro ao sair da conta.");
+        });
+    }
+
+    // ================= INICIALIZAR CARRINHO =================
 
     atualizarQuantidadeCarrinho();
-
 </script>
 
 </body>
-
 </html>

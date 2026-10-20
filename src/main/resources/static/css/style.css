@@ -455,6 +455,27 @@ body {
 }
 
 
+/* Acesso administrativo discreto */
+.acesso-admin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: #D2B48C;
+    font-size: 14px;
+    text-decoration: none;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.acesso-admin:hover {
+    opacity: 1;
+    color: #FFFFFF;
+}
+
+
+
 /* ========================
    CARRINHO
 ======================== */
@@ -2064,5 +2085,308 @@ body.modal-aberto {
 
     .btn-sucesso {
         transition: none;
+    }
+}
+
+/* ========================
+   MEUS PEDIDOS - NOVO VISUAL
+======================== */
+
+.secao-meus-pedidos {
+    width: 100%;
+    margin-top: 35px;
+}
+
+.titulo-meus-pedidos {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+.titulo-meus-pedidos .perfil-pedidos-icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: #E8D6C0;
+    font-size: 25px;
+}
+
+.titulo-meus-pedidos h3 {
+    color: var(--primary-color);
+    font-size: 23px;
+    margin: 0 0 3px;
+}
+
+.titulo-meus-pedidos p {
+    color: #6B5A4D;
+    font-size: 14px;
+    margin: 0;
+}
+
+.lista-pedidos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    align-items: stretch;
+    width: 100%;
+}
+
+.lista-pedidos > .pedido-cliente {
+    min-width: 0;
+    width: 100%;
+    margin: 0;
+    padding: 22px;
+    background: #FFF9F2;
+    border: 1px solid #E0C9AD;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(74, 45, 25, 0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.lista-pedidos > .pedido-cliente:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(74, 45, 25, 0.12);
+}
+
+.lista-pedidos .pedido-cliente-cabecalho {
+    padding-bottom: 16px;
+    border-bottom: 1px solid #E8D6C0;
+}
+
+.lista-pedidos .pedido-cliente-cabecalho p {
+    margin-bottom: 7px;
+    color: #6B5A4D;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+.lista-pedidos .pedido-cliente-cabecalho p strong {
+    color: var(--primary-color);
+    font-size: 18px;
+}
+
+.lista-pedidos .pedido-cliente-status {
+    margin-top: 5px;
+}
+
+.lista-pedidos .pedido-produtos {
+    margin-top: 18px;
+}
+
+.lista-pedidos .pedido-produtos-titulo {
+    margin-bottom: 12px;
+    font-size: 15px;
+}
+
+.lista-pedidos .pedido-produto {
+    padding: 13px;
+    margin-top: 10px;
+    background: #F3E9DC;
+    border: 1px solid #E8D6C0;
+    border-radius: 8px;
+}
+
+.lista-pedidos .pedido-produto strong {
+    font-size: 14px;
+}
+
+.lista-pedidos .pedido-produto p {
+    margin-top: 5px;
+    color: #6B5A4D;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+.lista-pedidos .pedido-cliente-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid #E8D6C0;
+}
+
+.lista-pedidos .pedido-cliente-total strong {
+    color: var(--primary-color);
+    font-size: 18px;
+}
+
+.mensagem-pedidos {
+    grid-column: 1 / -1;
+    padding: 25px;
+    background: #FFF9F2;
+    border: 1px solid #E0C9AD;
+    border-radius: 10px;
+    color: #6B5A4D;
+    text-align: center;
+}
+
+@media (max-width: 650px) {
+    .lista-pedidos {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .lista-pedidos > .pedido-cliente {
+        padding: 18px;
+    }
+
+    .titulo-meus-pedidos h3 {
+        font-size: 21px;
+    }
+}
+
+/* Acesso discreto à área administrativa */
+.link-admin {
+    display: inline-block;
+    margin-top: 10px;
+    color: #D2B48C;
+    font-size: 12px;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.link-admin:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+/* Ícone discreto de acesso administrativo */
+.acesso-admin {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+    color: #D2B48C;
+    font-size: 13px;
+    text-decoration: none;
+    opacity: 0.65;
+    transition: opacity 0.3s ease;
+}
+
+.acesso-admin:hover {
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+.acesso-admin {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #D2B48C;
+    font-size: 13px;
+    text-decoration: none;
+    opacity: 0.65;
+    transition: opacity 0.3s ease;
+}
+
+.acesso-admin:hover {
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+/* Botão da área administrativa */
+.btn-admin {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    background-color: var(--primary-color);
+    color: #FFFFFF;
+    border: 1px solid #A9683D;
+    border-radius: 20px;
+    font-size: 12px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.3s ease;
+}
+
+.btn-admin:hover {
+    background-color: #A9683D;
+    color: #FFFFFF;
+}
+
+/* ================= MENSAGEM DO CARRINHO ================= */
+
+.mensagem-carrinho {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    width: max-content;
+    max-width: calc(100% - 40px);
+    padding: 16px 20px;
+
+    background-color: #FFFFFF;
+    color: #3A2418;
+    border-left: 5px solid #8B4513;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateX(25px);
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease,
+        visibility 0.3s ease;
+}
+
+.mensagem-carrinho.visivel {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+.mensagem-icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+
+    background-color: #8B4513;
+    color: #FFFFFF;
+    border-radius: 50%;
+
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.mensagem-carrinho strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 15px;
+}
+
+.mensagem-carrinho p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+@media (max-width: 480px) {
+    .mensagem-carrinho {
+        top: 15px;
+        right: 15px;
+        max-width: calc(100% - 30px);
+        padding: 13px 15px;
     }
 }
